@@ -1,0 +1,267 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create Account - Skill Swap{% endblock %}
+
+{% block content %}
+<div class="auth-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="auth-card glass animate-on-scroll">
+                    <!-- Auth Header -->
+                    <div class="auth-header text-center">
+                        <div class="auth-icon-wrapper">
+                            <div class="auth-icon">
+                                <i class="bi bi-rocket-takeoff"></i>
+                            </div>
+                        </div>
+                        <h3 class="auth-title">Create Your Account</h3>
+                        <p class="auth-subtitle">Join the community and start exchanging skills today</p>
+                    </div>
+                    
+                    <!-- Register Form -->
+                    <form method="post" action="{% url 'register' %}" class="auth-form" novalidate>
+                        {% csrf_token %}
+                        
+                        <!-- Username -->
+                        <div class="form-group">
+                            <label for="username" class="form-label">
+                                <i class="bi bi-person me-1"></i> Username
+                            </label>
+                            <div class="input-group-wrapper">
+                                <input type="text" 
+                                       id="username" 
+                                       name="username" 
+                                       class="form-control auth-input" 
+                                       placeholder="Choose a unique username"
+                                       required 
+                                       autofocus
+                                       minlength="3"
+                                       maxlength="150">
+                            </div>
+                            <small class="form-text text-muted">3-150 characters. Letters, digits and @/./+/-/_ only.</small>
+                        </div>
+                        
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label for="email" class="form-label">
+                                <i class="bi bi-envelope me-1"></i> Email Address
+                            </label>
+                            <div class="input-group-wrapper">
+                                <input type="email" 
+                                       id="email" 
+                                       name="email" 
+                                       class="form-control auth-input" 
+                                       placeholder="Enter your email address"
+                                       required>
+                            </div>
+                        </div>
+                        
+                        <!-- Password -->
+                        <div class="form-group">
+                            <label for="password1" class="form-label">
+                                <i class="bi bi-lock me-1"></i> Password
+                            </label>
+                            <div class="input-group-wrapper password-wrapper">
+                                <input type="password" 
+                                       id="password1" 
+                                       name="password1" 
+                                       class="form-control auth-input" 
+                                       placeholder="Create a strong password"
+                                       required
+                                       minlength="8">
+                                <button type="button" class="password-toggle" aria-label="Toggle password visibility">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                            <div class="password-requirements">
+                                <small class="form-text text-muted">Minimum 8 characters</small>
+                                <div class="password-strength mt-1">
+                                    <div class="strength-bar">
+                                        <div class="strength-progress" style="width: 0%;"></div>
+                                    </div>
+                                    <span class="strength-text">Weak</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Confirm Password -->
+                        <div class="form-group">
+                            <label for="password2" class="form-label">
+                                <i class="bi bi-shield-lock me-1"></i> Confirm Password
+                            </label>
+                            <div class="input-group-wrapper password-wrapper">
+                                <input type="password" 
+                                       id="password2" 
+                                       name="password2" 
+                                       class="form-control auth-input" 
+                                       placeholder="Confirm your password"
+                                       required>
+                                <button type="button" class="password-toggle" aria-label="Toggle password visibility">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                            <small class="form-text password-match-text text-muted">Passwords must match</small>
+                        </div>
+                        
+                        <!-- Terms & Conditions -->
+                        <div class="form-group terms-group">
+                            <div class="form-check">
+                                <input type="checkbox" 
+                                       id="terms" 
+                                       name="terms" 
+                                       class="form-check-input" 
+                                       required>
+                                <label for="terms" class="form-check-label">
+                                    I agree to the 
+                                    <a href="#" class="auth-link">Terms of Service</a> 
+                                    and 
+                                    <a href="#" class="auth-link">Privacy Policy</a>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-glow btn-lg w-100 auth-submit">
+                            <i class="bi bi-rocket-takeoff me-2"></i> Create Account
+                        </button>
+                        
+                        <!-- Divider -->
+                        <div class="auth-divider">
+                            <span>or continue with</span>
+                        </div>
+                        
+                        <!-- Social Login -->
+                        <div class="social-login d-flex gap-3">
+                            <a href="#" class="social-btn flex-grow-1">
+                                <i class="bi bi-google"></i> Google
+                            </a>
+                            <a href="#" class="social-btn flex-grow-1">
+                                <i class="bi bi-github"></i> GitHub
+                            </a>
+                        </div>
+                    </form>
+                    
+                    <!-- Login Link -->
+                    <div class="auth-footer text-center">
+                        <p class="mb-0">
+                            Already have an account? 
+                            <a href="{% url 'login' %}" class="auth-link">Sign in here</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Password toggle visibility for all password fields
+        const passwordToggles = document.querySelectorAll('.password-toggle');
+        
+        passwordToggles.forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const wrapper = this.closest('.password-wrapper');
+                const input = wrapper.querySelector('input');
+                const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                input.setAttribute('type', type);
+                this.querySelector('i').classList.toggle('bi-eye');
+                this.querySelector('i').classList.toggle('bi-eye-slash');
+            });
+        });
+        
+        // Password strength checker
+        const passwordInput = document.querySelector('#password1');
+        const strengthBar = document.querySelector('.strength-progress');
+        const strengthText = document.querySelector('.strength-text');
+        
+        if (passwordInput && strengthBar && strengthText) {
+            passwordInput.addEventListener('input', function() {
+                const password = this.value;
+                const strength = getPasswordStrength(password);
+                
+                // Update strength bar
+                strengthBar.style.width = strength.percentage + '%';
+                strengthBar.style.background = strength.color;
+                
+                // Update strength text
+                strengthText.textContent = strength.label;
+                strengthText.style.color = strength.color;
+            });
+        }
+        
+        function getPasswordStrength(password) {
+            let score = 0;
+            const length = password.length;
+            
+            if (length === 0) {
+                return { percentage: 0, label: 'Weak', color: '#ef4444' };
+            }
+            
+            // Length check
+            if (length >= 8) score += 25;
+            if (length >= 12) score += 25;
+            
+            // Character variety
+            if (/[a-z]/.test(password)) score += 15;
+            if (/[A-Z]/.test(password)) score += 15;
+            if (/[0-9]/.test(password)) score += 10;
+            if (/[^a-zA-Z0-9]/.test(password)) score += 10;
+            
+            // Cap at 100
+            score = Math.min(score, 100);
+            
+            let label, color;
+            if (score >= 80) {
+                label = 'Strong';
+                color = '#10b981';
+            } else if (score >= 50) {
+                label = 'Medium';
+                color = '#f59e0b';
+            } else {
+                label = 'Weak';
+                color = '#ef4444';
+            }
+            
+            return { percentage: score, label, color };
+        }
+        
+        // Password match checker
+        const password2Input = document.querySelector('#password2');
+        const matchText = document.querySelector('.password-match-text');
+        
+        if (passwordInput && password2Input && matchText) {
+            function checkPasswordMatch() {
+                const pass1 = passwordInput.value;
+                const pass2 = password2Input.value;
+                
+                if (pass2.length === 0) {
+                    matchText.textContent = 'Confirm your password';
+                    matchText.className = 'form-text password-match-text text-muted';
+                } else if (pass1 === pass2) {
+                    matchText.textContent = '✓ Passwords match';
+                    matchText.className = 'form-text password-match-text text-success';
+                } else {
+                    matchText.textContent = '✗ Passwords do not match';
+                    matchText.className = 'form-text password-match-text text-danger';
+                }
+            }
+            
+            passwordInput.addEventListener('input', checkPasswordMatch);
+            password2Input.addEventListener('input', checkPasswordMatch);
+        }
+        
+        // Auto-focus username field
+        const usernameInput = document.querySelector('#username');
+        if (usernameInput) {
+            setTimeout(() => {
+                usernameInput.focus();
+            }, 100);
+        }
+    });
+</script>
+{% endblock %}
