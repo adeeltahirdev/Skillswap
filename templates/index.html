@@ -1,0 +1,561 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Skill Swap - Exchange Skills, Learn Something New{% endblock %}
+
+{% block content %}
+<!-- ======================================== -->
+<!-- HERO SECTION                            -->
+<!-- ======================================== -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center min-vh-75">
+            <div class="col-lg-7">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i class="bi bi-rocket-takeoff"></i>
+                        <span>Join 10,000+ Learners</span>
+                    </div>
+                    
+                    <h1 class="hero-title">
+                        Exchange Skills.
+                        <br>
+                        <span class="gradient-text">Learn Something New.</span>
+                    </h1>
+                    
+                    <p class="hero-description">
+                        Skill Swap is a global community where you can exchange your knowledge 
+                        with others. No money involved — just pure skill exchange.
+                    </p>
+                    
+                    <div class="hero-actions">
+                        <a href="{% url 'register' %}" class="btn btn-glow btn-lg">
+                            <i class="bi bi-rocket-takeoff me-2"></i> Get Started
+                        </a>
+                        <a href="{% url 'skill_list' %}" class="btn btn-outline-glass btn-lg">
+                            <i class="bi bi-compass me-2"></i> Browse Skills
+                        </a>
+                    </div>
+                    
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="5000">0</span>
+                            <span class="stat-label">Active Users</span>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="12000">0</span>
+                            <span class="stat-label">Skills Exchanged</span>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="150">0</span>
+                            <span class="stat-label">Countries</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-5">
+                <div class="hero-visual">
+                    <div class="floating-cards">
+                        <div class="float-card card-1 animate-float">
+                            <div class="card-icon" style="background: linear-gradient(135deg, #7c3aed, #8b5cf6);">
+                                <i class="bi bi-palette"></i>
+                            </div>
+                            <div class="card-info">
+                                <h6>Photoshop</h6>
+                                <span>5 users learning</span>
+                            </div>
+                        </div>
+                        
+                        <div class="float-card card-2 animate-float-delay-1">
+                            <div class="card-icon" style="background: linear-gradient(135deg, #06b6d4, #10b981);">
+                                <i class="bi bi-music-note-beamed"></i>
+                            </div>
+                            <div class="card-info">
+                                <h6>Guitar</h6>
+                                <span>12 users teaching</span>
+                            </div>
+                        </div>
+                        
+                        <div class="float-card card-3 animate-float-delay-2">
+                            <div class="card-icon" style="background: linear-gradient(135deg, #ec4899, #8b5cf6);">
+                                <i class="bi bi-code-square"></i>
+                            </div>
+                            <div class="card-info">
+                                <h6>Python</h6>
+                                <span>8 users exchanging</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Decorative elements -->
+                    <div class="hero-orb orb-1"></div>
+                    <div class="hero-orb orb-2"></div>
+                    <div class="hero-ring"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================== -->
+<!-- HOW IT WORKS                             -->
+<!-- ======================================== -->
+<section class="how-it-works section-padding">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="section-tag">How It Works</span>
+            <h2 class="section-title">
+                Start Exchanging in
+                <span class="gradient-text">4 Simple Steps</span>
+            </h2>
+            <p class="section-description">
+                Join the community and start your skill exchange journey today
+            </p>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Step 1 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="step-card animate-on-scroll">
+                    <div class="step-number">01</div>
+                    <div class="step-icon">
+                        <i class="bi bi-person-plus"></i>
+                    </div>
+                    <h5>Create Profile</h5>
+                    <p>Sign up and tell the community about your skills and interests</p>
+                </div>
+            </div>
+            
+            <!-- Step 2 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="step-card animate-on-scroll" style="animation-delay: 0.1s;">
+                    <div class="step-number">02</div>
+                    <div class="step-icon">
+                        <i class="bi bi-tools"></i>
+                    </div>
+                    <h5>Add Your Skills</h5>
+                    <p>List skills you can teach and skills you want to learn</p>
+                </div>
+            </div>
+            
+            <!-- Step 3 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="step-card animate-on-scroll" style="animation-delay: 0.2s;">
+                    <div class="step-number">03</div>
+                    <div class="step-icon">
+                        <i class="bi bi-search-heart"></i>
+                    </div>
+                    <h5>Find Matches</h5>
+                    <p>Discover people who want to exchange skills with you</p>
+                </div>
+            </div>
+            
+            <!-- Step 4 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="step-card animate-on-scroll" style="animation-delay: 0.3s;">
+                    <div class="step-number">04</div>
+                    <div class="step-icon">
+                        <i class="bi bi-arrow-left-right"></i>
+                    </div>
+                    <h5>Start Swapping</h5>
+                    <p>Connect, schedule sessions, and start learning together</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================== -->
+<!-- FEATURED SKILLS                          -->
+<!-- ======================================== -->
+<section class="featured-skills section-padding bg-gradient-section">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="section-tag">Popular Skills</span>
+            <h2 class="section-title">
+                Explore
+                <span class="gradient-text">Featured Skills</span>
+            </h2>
+            <p class="section-description">
+                Discover skills that are trending in the community
+            </p>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Skill Card 1 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="skill-card animate-on-scroll">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" style="background: linear-gradient(135deg, #7c3aed, #8b5cf6);">
+                            <i class="bi bi-code-square"></i>
+                        </div>
+                        <div class="skill-meta">
+                            <span class="skill-category">Programming</span>
+                            <span class="skill-rating">
+                                <i class="bi bi-star-fill"></i> 4.8
+                            </span>
+                        </div>
+                    </div>
+                    <h5 class="skill-name">Python Development</h5>
+                    <p class="skill-description">Learn Python from basics to advanced. Perfect for data science and web development.</p>
+                    <div class="skill-footer">
+                        <div class="skill-teacher">
+                            <img src="https://ui-avatars.com/api/?name=Sarah+Chen&background=7c3aed&color=fff&size=32" alt="Teacher">
+                            <span>Sarah Chen</span>
+                        </div>
+                        <a href="{% url 'skill_detail' pk=1 %}" class="btn btn-glow btn-sm">View Skill</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Skill Card 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="skill-card animate-on-scroll" style="animation-delay: 0.1s;">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" style="background: linear-gradient(135deg, #06b6d4, #10b981);">
+                            <i class="bi bi-palette"></i>
+                        </div>
+                        <div class="skill-meta">
+                            <span class="skill-category">Design</span>
+                            <span class="skill-rating">
+                                <i class="bi bi-star-fill"></i> 4.9
+                            </span>
+                        </div>
+                    </div>
+                    <h5 class="skill-name">Photoshop Mastery</h5>
+                    <p class="skill-description">Master photo editing, digital art, and design principles with hands-on practice.</p>
+                    <div class="skill-footer">
+                        <div class="skill-teacher">
+                            <img src="https://ui-avatars.com/api/?name=Alex+Rivera&background=06b6d4&color=fff&size=32" alt="Teacher">
+                            <span>Alex Rivera</span>
+                        </div>
+                        <a href="{% url 'skill_detail' pk=2 %}" class="btn btn-glow btn-sm">View Skill</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Skill Card 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="skill-card animate-on-scroll" style="animation-delay: 0.2s;">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" style="background: linear-gradient(135deg, #ec4899, #8b5cf6);">
+                            <i class="bi bi-music-note-beamed"></i>
+                        </div>
+                        <div class="skill-meta">
+                            <span class="skill-category">Music</span>
+                            <span class="skill-rating">
+                                <i class="bi bi-star-fill"></i> 4.7
+                            </span>
+                        </div>
+                    </div>
+                    <h5 class="skill-name">Guitar for Beginners</h5>
+                    <p class="skill-description">Learn chords, strumming patterns, and popular songs. No prior experience needed.</p>
+                    <div class="skill-footer">
+                        <div class="skill-teacher">
+                            <img src="https://ui-avatars.com/api/?name=Maria+Garcia&background=ec4899&color=fff&size=32" alt="Teacher">
+                            <span>Maria Garcia</span>
+                        </div>
+                        <a href="{% url 'skill_detail' pk=3 %}" class="btn btn-glow btn-sm">View Skill</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Skill Card 4 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="skill-card animate-on-scroll" style="animation-delay: 0.3s;">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">
+                            <i class="bi bi-camera"></i>
+                        </div>
+                        <div class="skill-meta">
+                            <span class="skill-category">Photography</span>
+                            <span class="skill-rating">
+                                <i class="bi bi-star-fill"></i> 4.6
+                            </span>
+                        </div>
+                    </div>
+                    <h5 class="skill-name">Photography Basics</h5>
+                    <p class="skill-description">Learn composition, lighting, and editing. Take professional-quality photos.</p>
+                    <div class="skill-footer">
+                        <div class="skill-teacher">
+                            <img src="https://ui-avatars.com/api/?name=James+Lee&background=f59e0b&color=fff&size=32" alt="Teacher">
+                            <span>James Lee</span>
+                        </div>
+                        <a href="{% url 'skill_detail' pk=4 %}" class="btn btn-glow btn-sm">View Skill</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Skill Card 5 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="skill-card animate-on-scroll" style="animation-delay: 0.4s;">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
+                            <i class="bi bi-layers"></i>
+                        </div>
+                        <div class="skill-meta">
+                            <span class="skill-category">Design</span>
+                            <span class="skill-rating">
+                                <i class="bi bi-star-fill"></i> 4.9
+                            </span>
+                        </div>
+                    </div>
+                    <h5 class="skill-name">Graphic Design</h5>
+                    <p class="skill-description">Create stunning visuals with industry-standard tools and techniques.</p>
+                    <div class="skill-footer">
+                        <div class="skill-teacher">
+                            <img src="https://ui-avatars.com/api/?name=Emma+Wong&background=6366f1&color=fff&size=32" alt="Teacher">
+                            <span>Emma Wong</span>
+                        </div>
+                        <a href="{% url 'skill_detail' pk=5 %}" class="btn btn-glow btn-sm">View Skill</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Skill Card 6 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="skill-card animate-on-scroll" style="animation-delay: 0.5s;">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" style="background: linear-gradient(135deg, #10b981, #06b6d4);">
+                            <i class="bi bi-browser-chrome"></i>
+                        </div>
+                        <div class="skill-meta">
+                            <span class="skill-category">Web Dev</span>
+                            <span class="skill-rating">
+                                <i class="bi bi-star-fill"></i> 4.8
+                            </span>
+                        </div>
+                    </div>
+                    <h5 class="skill-name">Web Development</h5>
+                    <p class="skill-description">Build modern websites with HTML, CSS, JavaScript, and React.</p>
+                    <div class="skill-footer">
+                        <div class="skill-teacher">
+                            <img src="https://ui-avatars.com/api/?name=David+Park&background=10b981&color=fff&size=32" alt="Teacher">
+                            <span>David Park</span>
+                        </div>
+                        <a href="{% url 'skill_detail' pk=6 %}" class="btn btn-glow btn-sm">View Skill</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-5">
+            <a href="{% url 'skill_list' %}" class="btn btn-outline-glass">
+                <i class="bi bi-compass me-2"></i> Browse All Skills
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================== -->
+<!-- WHY SKILL SWAP                           -->
+<!-- ======================================== -->
+<section class="why-section section-padding">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="section-tag">Why Skill Swap</span>
+            <h2 class="section-title">
+                Learn Without
+                <span class="gradient-text">Spending Money</span>
+            </h2>
+            <p class="section-description">
+                Discover the benefits of skill exchange
+            </p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="benefit-card animate-on-scroll">
+                    <div class="benefit-icon" style="background: linear-gradient(135deg, #7c3aed, #8b5cf6);">
+                        <i class="bi bi-wallet2"></i>
+                    </div>
+                    <h5>Learn for Free</h5>
+                    <p>Exchange skills instead of money. No hidden fees or subscription costs.</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="benefit-card animate-on-scroll" style="animation-delay: 0.1s;">
+                    <div class="benefit-icon" style="background: linear-gradient(135deg, #06b6d4, #10b981);">
+                        <i class="bi bi-mortarboard"></i>
+                    </div>
+                    <h5>Learn Anything</h5>
+                    <p>From coding to cooking, find someone who can teach you any skill.</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="benefit-card animate-on-scroll" style="animation-delay: 0.2s;">
+                    <div class="benefit-icon" style="background: linear-gradient(135deg, #ec4899, #8b5cf6);">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <h5>Meet New People</h5>
+                    <p>Connect with like-minded individuals from around the world.</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="benefit-card animate-on-scroll" style="animation-delay: 0.3s;">
+                    <div class="benefit-icon" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">
+                        <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+                    <h5>Grow Your Network</h5>
+                    <p>Build a professional network while sharing your knowledge.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================== -->
+<!-- TESTIMONIALS                             -->
+<!-- ======================================== -->
+<section class="testimonials section-padding bg-gradient-section">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="section-tag">Success Stories</span>
+            <h2 class="section-title">
+                What Our
+                <span class="gradient-text">Community Says</span>
+            </h2>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="testimonial-card animate-on-scroll">
+                    <div class="testimonial-rating">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "I learned Python in exchange for teaching Photoshop. Skill Swap completely changed my career path!"
+                    </p>
+                    <div class="testimonial-author">
+                        <img src="https://ui-avatars.com/api/?name=Jane+Doe&background=7c3aed&color=fff&size=40" alt="Jane Doe">
+                        <div>
+                            <h6>Jane Doe</h6>
+                            <span>Python Developer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="testimonial-card animate-on-scroll" style="animation-delay: 0.1s;">
+                    <div class="testimonial-rating">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "I taught guitar and learned video editing. The community is amazing and very supportive!"
+                    </p>
+                    <div class="testimonial-author">
+                        <img src="https://ui-avatars.com/api/?name=Mike+Smith&background=06b6d4&color=fff&size=40" alt="Mike Smith">
+                        <div>
+                            <h6>Mike Smith</h6>
+                            <span>Video Editor</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="testimonial-card animate-on-scroll" style="animation-delay: 0.2s;">
+                    <div class="testimonial-rating">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Skill Swap helped me learn graphic design while sharing my web development skills. Win-win!"
+                    </p>
+                    <div class="testimonial-author">
+                        <img src="https://ui-avatars.com/api/?name=Lisa+Chen&background=ec4899&color=fff&size=40" alt="Lisa Chen">
+                        <div>
+                            <h6>Lisa Chen</h6>
+                            <span>Graphic Designer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================== -->
+<!-- CALL TO ACTION                           -->
+<!-- ======================================== -->
+<section class="cta-section section-padding">
+    <div class="container">
+        <div class="cta-wrapper glass">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <h2 class="cta-title">
+                        Ready to Start
+                        <span class="gradient-text">Exchanging Skills?</span>
+                    </h2>
+                    <p class="cta-description">
+                        Join thousands of learners and teachers already exchanging skills on Skill Swap.
+                        It's completely free to get started.
+                    </p>
+                </div>
+                <div class="col-lg-5 text-lg-end">
+                    <a href="{% url 'register' %}" class="btn btn-glow btn-lg">
+                        <i class="bi bi-rocket-takeoff me-2"></i> Create Free Account
+                    </a>
+                    <p class="cta-note mt-2">No credit card required • Free forever</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animated counter for hero stats
+        const statNumbers = document.querySelectorAll('.stat-number');
+        
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    const count = parseInt(target.dataset.count);
+                    animateCounter(target, count);
+                    counterObserver.unobserve(target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        statNumbers.forEach(stat => counterObserver.observe(stat));
+        
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = Math.ceil(target / 60);
+            const duration = 2000;
+            const stepTime = duration / 60;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = current + (target >= 1000 ? '+' : '');
+            }, stepTime);
+        }
+    });
+</script>
+{% endblock %}
