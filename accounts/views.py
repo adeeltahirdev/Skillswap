@@ -15,6 +15,7 @@ def login(request):
             return redirect('index')
         else:
             messages.error(request, 'Invalid credentials!')
+            return redirect('login')
             
     return render(request, 'auth/login.html')
 
@@ -26,7 +27,6 @@ def register(request):
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password1')
-        confirm_password = request.POST.get('password2')
 
         if not username or not email or not password:
             messages.error(request, 'All fields are required.')
@@ -34,8 +34,6 @@ def register(request):
             messages.error(request, 'Username already exists.')
         elif User.objects.filter(email=email).exists():
             messages.error(request, 'Email already exists.')
-        elif password != confirm_password:
-            messages.error(request, 'Passwords do not match.')
         else:
             User.objects.create_user(username=username, email=email, password=password)
             messages.success(request, 'Registration successful. Sign in now!')
@@ -43,6 +41,12 @@ def register(request):
     
     return render(request, 'auth/register.html')
 
-def logout(request):
+def user_profile(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    return render(request, 'auth/profile.html')
+
+def logout_view(request):
     logout(request)
     return redirect('index')
