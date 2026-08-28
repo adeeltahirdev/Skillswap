@@ -5,7 +5,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from .models import Profile, Skill, SwapRequest, Review, Activity
+from django.db import models
+from .models import Profile  # Only import Profile from accounts
+from skills.models import Skill  # Import Skill from skills app
+from swap.models import SwapRequest, Review, Activity  # Import from swap app
 import json
 
 def login(request):
@@ -64,23 +67,33 @@ def user_profile(request, username=None):
     # Get or create profile
     profile, created = Profile.objects.get_or_create(user=profile_user)
     
-    # Get skills
-    skills_offered_list = Skill.objects.filter(user=profile_user, skill_type='offer')
-    skills_wanted_list = Skill.objects.filter(user=profile_user, skill_type='want')
+    # Get skills - Import Skill from skills app
+    try:
+        from skills.models import Skill
+        skills_offered_list = Skill.objects.filter(user=profile_user, skill_type='offer')
+        skills_wanted_list = Skill.objects.filter(user=profile_user, skill_type='want')
+        skills_offered_count = skills_offered_list.count()
+        skills_wanted_count = skills_wanted_list.count()
+    except:
+        skills_offered_list = []
+        skills_wanted_list = []
+        skills_offered_count = 0
+        skills_wanted_count = 0
     
-    # Get reviews (limit to latest 10)
-    reviews_list = Review.objects.filter(user=profile_user).order_by('-created_at')[:10]
+    # Get reviews and activity - Import from swap app
+    try:
+        from swap.models import SwapRequest, Review, Activity
+        reviews_list = Review.objects.filter(user=profile_user).order_by('-created_at')[:10]
+        activity_list = Activity.objects.filter(user=profile_user).order_by('-created_at')[:10]
+        completed_swaps_count = SwapRequest.objects.filter(
+            models.Q(requester=profile_user) | models.Q(recipient=profile_user),
+            status='completed'
+        ).count()
+    except:
+        reviews_list = []
+        activity_list = []
+        completed_swaps_count = 0
     
-    # Get activity (limit to latest 10)
-    activity_list = Activity.objects.filter(user=profile_user).order_by('-created_at')[:10]
-    
-    # Get counts
-    skills_offered_count = skills_offered_list.count()
-    skills_wanted_count = skills_wanted_list.count()
-    completed_swaps_count = SwapRequest.objects.filter(
-        models.Q(requester=profile_user) | models.Q(recipient=profile_user),
-        status='completed'
-    ).count()
     connections_count = 0  # You can implement this later
     
     context = {
@@ -121,14 +134,18 @@ def update_profile(request):
         
         profile.save()
         
-        # Create activity
-        Activity.objects.create(
-            user=user,
-            title='Updated profile',
-            description='Updated profile information',
-            icon='bi bi-person-gear',
-            color='linear-gradient(135deg, #7c3aed, #8b5cf6)'
-        )
+        # Create activity - Import from swap app
+        try:
+            from swap.models import Activity
+            Activity.objects.create(
+                user=user,
+                title='Updated profile',
+                description='Updated profile information',
+                icon='bi bi-person-gear',
+                color='linear-gradient(135deg, #7c3aed, #8b5cf6)'
+            )
+        except:
+            pass
         
         return JsonResponse({
             'success': True,
@@ -154,13 +171,17 @@ def update_avatar(request):
             profile.save()
             
             # Create activity
-            Activity.objects.create(
-                user=user,
-                title='Updated avatar',
-                description='Changed profile picture',
-                icon='bi bi-camera',
-                color='linear-gradient(135deg, #06b6d4, #10b981)'
-            )
+            try:
+                from swap.models import Activity
+                Activity.objects.create(
+                    user=user,
+                    title='Updated avatar',
+                    description='Changed profile picture',
+                    icon='bi bi-camera',
+                    color='linear-gradient(135deg, #06b6d4, #10b981)'
+                )
+            except:
+                pass
             
             return JsonResponse({
                 'success': True,
@@ -188,7 +209,10 @@ def add_skill(request):
         data = json.loads(request.body)
         user = request.user
         
-        # Get color based on skill type
+        # Import Skill from skills app
+        from skills.models import Skill
+        
+        # Get color based on skill category
         color_map = {
             'programming': 'linear-gradient(135deg, #7c3aed, #8b5cf6)',
             'design': 'linear-gradient(135deg, #06b6d4, #10b981)',
@@ -223,14 +247,18 @@ def add_skill(request):
         )
         
         # Create activity
-        skill_type_display = 'offered' if data['skill_type'] == 'offer' else 'wanted'
-        Activity.objects.create(
-            user=user,
-            title=f'Added a new skill',
-            description=f'Added "{data["name"]}" to skills {skill_type_display}',
-            icon='bi bi-plus-circle',
-            color='linear-gradient(135deg, #10b981, #06b6d4)'
-        )
+        try:
+            from swap.models import Activity
+            skill_type_display = 'offered' if data['skill_type'] == 'offer' else 'wanted'
+            Activity.objects.create(
+                user=user,
+                title='Added a new skill',
+                description=f'Added "{data["name"]}" to skills {skill_type_display}',
+                icon='bi bi-plus-circle',
+                color='linear-gradient(135deg, #10b981, #06b6d4)'
+            )
+        except:
+            pass
         
         return JsonResponse({
             'success': True,
@@ -238,7 +266,7 @@ def add_skill(request):
             'skill': {
                 'id': skill.id,
                 'name': skill.name,
-                'category': skill.category,
+                'category': skill.get_category_display(),
                 'skill_type': skill.skill_type,
                 'icon': skill.icon,
                 'color': skill.color
@@ -257,18 +285,23 @@ def delete_skill(request, skill_id):
     AJAX endpoint to delete a skill
     """
     try:
+        from skills.models import Skill
         skill = get_object_or_404(Skill, id=skill_id, user=request.user)
         skill_name = skill.name
         skill.delete()
         
         # Create activity
-        Activity.objects.create(
-            user=request.user,
-            title='Removed a skill',
-            description=f'Removed "{skill_name}" from skills',
-            icon='bi bi-trash',
-            color='linear-gradient(135deg, #ef4444, #dc2626)'
-        )
+        try:
+            from swap.models import Activity
+            Activity.objects.create(
+                user=request.user,
+                title='Removed a skill',
+                description=f'Removed "{skill_name}" from skills',
+                icon='bi bi-trash',
+                color='linear-gradient(135deg, #ef4444, #dc2626)'
+            )
+        except:
+            pass
         
         return JsonResponse({
             'success': True,

@@ -17,4 +17,3 @@ urlpatterns = [
     path('api/add-skill/', views.add_skill, name='add_skill'),
     path('api/delete-skill/<int:skill_id>/', views.delete_skill, name='delete_skill'),
 ]
-
