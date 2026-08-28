@@ -26,6 +26,10 @@
     --radius-xl: 32px;
 }
 
+.txc{
+    color: #555 !important;
+}
+
 /* ----- Reset & Base ----- */
 * {
     margin: 0;
