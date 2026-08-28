@@ -2430,3 +2430,500 @@ h1, h2, h3, h4, h5, h6 {
         white-space: nowrap;
     }
 }
+
+/* ================================================
+   PROFILE PAGE - ADDITIONAL STYLES
+   ================================================ */
+
+/* ----- Avatar Container ----- */
+.profile-avatar-container {
+    position: relative;
+    display: inline-block;
+}
+
+.avatar-edit-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    border: 2px solid #0a0a0f;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.avatar-edit-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+}
+
+.avatar-edit-btn i {
+    font-size: 0.9rem;
+}
+
+/* ----- Editable Fields ----- */
+.editable-field {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.edit-icon-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 4px;
+    font-size: 0.9rem;
+}
+
+.edit-icon-btn:hover {
+    color: #8b5cf6;
+}
+
+.edit-icon-btn.small {
+    font-size: 0.75rem;
+}
+
+.edit-form {
+    width: 100%;
+    margin-top: 4px;
+}
+
+.edit-form .input-group {
+    gap: 6px;
+}
+
+.edit-form .form-control {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.06);
+    color: white;
+    border-radius: 10px;
+    padding: 0.5rem 0.8rem;
+}
+
+.edit-form .form-control:focus {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+}
+
+.edit-form textarea.form-control {
+    resize: vertical;
+}
+
+/* ----- Skill Mini Actions ----- */
+.skill-mini-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.skill-action-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 4px 6px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+}
+
+.skill-action-btn:hover {
+    color: #8b5cf6;
+    background: rgba(124, 58, 237, 0.1);
+}
+
+.skill-action-btn.text-danger:hover {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+/* ----- Skill Colors (for icons without inline styles) ----- */
+.skill-color-0 {
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+}
+
+.skill-color-1 {
+    background: linear-gradient(135deg, #06b6d4, #10b981);
+}
+
+.skill-color-2 {
+    background: linear-gradient(135deg, #ec4899, #8b5cf6);
+}
+
+.skill-color-wanted-0 {
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+}
+
+.skill-color-wanted-1 {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+}
+
+.skill-color-wanted-2 {
+    background: linear-gradient(135deg, #10b981, #06b6d4);
+}
+
+/* ----- Activity Colors ----- */
+.activity-color-0 {
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+}
+
+.activity-color-1 {
+    background: linear-gradient(135deg, #06b6d4, #10b981);
+}
+
+.activity-color-2 {
+    background: linear-gradient(135deg, #ec4899, #8b5cf6);
+}
+
+.activity-color-3 {
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+}
+
+/* ----- Rating Fill Colors ----- */
+.rating-fill-5 {
+    width: 85%;
+    background: #10b981;
+}
+
+.rating-fill-4 {
+    width: 10%;
+    background: #f59e0b;
+}
+
+.rating-fill-3 {
+    width: 3%;
+    background: #f97316;
+}
+
+.rating-fill-2 {
+    width: 1%;
+    background: #ef4444;
+}
+
+.rating-fill-1 {
+    width: 1%;
+    background: #dc2626;
+}
+
+/* ----- Glass Modal ----- */
+.glass-modal {
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 20px;
+}
+
+.glass-modal .modal-header,
+.glass-modal .modal-footer {
+    border-color: rgba(255, 255, 255, 0.04);
+}
+
+.glass-modal .form-control,
+.glass-modal .form-select {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.06);
+    color: white;
+    border-radius: 10px;
+}
+
+.glass-modal .form-control:focus,
+.glass-modal .form-select:focus {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+}
+
+.glass-modal .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.glass-modal .form-check-input {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-modal .form-check-input:checked {
+    background: #7c3aed;
+    border-color: #7c3aed;
+}
+
+/* Notification animations */
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOutRight {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+}
+
+/* ================================================
+   CUSTOM MODALS
+   ================================================ */
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-container {
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease;
+}
+
+/* Scrollbar for modal */
+.modal-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 10px;
+}
+
+.modal-container::-webkit-scrollbar-thumb {
+    background: rgba(124, 58, 237, 0.3);
+    border-radius: 10px;
+}
+
+.modal-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(124, 58, 237, 0.5);
+}
+
+.glass-modal {
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    padding: 0.5rem 1.5rem 1.5rem 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.glass-modal .form-control,
+.glass-modal .form-select {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.06);
+    color: white;
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.glass-modal .form-control:focus,
+.glass-modal .form-select:focus {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+    outline: none;
+    color: white;
+}
+
+.glass-modal .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.glass-modal .form-control:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.glass-modal .form-check-input {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+}
+
+.glass-modal .form-check-input:checked {
+    background: #7c3aed;
+    border-color: #7c3aed;
+}
+
+.glass-modal .form-check-input:focus {
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+}
+
+.glass-modal .form-check-label {
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+}
+
+.glass-modal .text-muted {
+    color: rgba(255, 255, 255, 0.3) !important;
+    font-size: 0.8rem;
+}
+
+/* Modal Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOutRight {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+}
+
+/* ----- Responsive Modals ----- */
+@media (max-width: 767.98px) {
+    .modal-container {
+        width: 95%;
+        max-height: 95vh;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+    }
+    
+    .modal-header {
+        padding: 1rem 1rem 0.5rem 1rem;
+    }
+    
+    .modal-footer {
+        padding: 0.5rem 1rem 1rem 1rem;
+        flex-direction: column-reverse;
+    }
+    
+    .modal-footer .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .glass-modal .form-check {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* ----- Responsive Adjustments ----- */
+@media (max-width: 767.98px) {
+    .profile-avatar {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .avatar-edit-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+    
+    .profile-name {
+        font-size: 1.5rem;
+    }
+    
+    .editable-field {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .edit-form .input-group {
+        flex-wrap: wrap;
+    }
+    
+    .edit-form .input-group .btn {
+        flex: 1;
+    }
+    
+    .skill-mini-actions {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 576px) {
+    .profile-avatar {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .avatar-edit-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.7rem;
+    }
+    
+    .profile-name-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+    }
+}
