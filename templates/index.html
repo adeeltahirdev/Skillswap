@@ -29,12 +29,21 @@
                     </p>
                     
                     <div class="hero-actions">
-                        <a href="{% url 'register' %}" class="btn btn-glow btn-lg">
-                            <i class="bi bi-rocket-takeoff me-2"></i> Get Started
-                        </a>
-                        <a href="#" class="btn btn-outline-glass btn-lg">
-                            <i class="bi bi-compass me-2"></i> Browse Skills
-                        </a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'profile' %}" class="btn btn-glow btn-lg">
+                                <i class="bi bi-person me-2"></i> My Profile
+                            </a>
+                            <a href="#" class="btn btn-outline-glass btn-lg">
+                                <i class="bi bi-compass me-2"></i> Browse Skills
+                            </a>
+                        {% else %}
+                            <a href="{% url 'register' %}" class="btn btn-glow btn-lg">
+                                <i class="bi bi-rocket-takeoff me-2"></i> Get Started
+                            </a>
+                            <a href="#" class="btn btn-outline-glass btn-lg">
+                                <i class="bi bi-compass me-2"></i> Browse Skills
+                            </a>
+                        {% endif %}
                     </div>
                     
                     <div class="hero-stats">
@@ -494,8 +503,9 @@
 </section>
 
 <!-- ======================================== -->
-<!-- CALL TO ACTION                           -->
+<!-- CALL TO ACTION - Only for logged-out users -->
 <!-- ======================================== -->
+{% if not user.is_authenticated %}
 <section class="cta-section section-padding">
     <div class="container">
         <div class="cta-wrapper glass">
@@ -520,6 +530,29 @@
         </div>
     </div>
 </section>
+{% else %}
+<!-- ======================================== -->
+<!-- WELCOME BACK SECTION - For logged-in users -->
+<!-- ======================================== -->
+<section class="section-padding">
+    <div class="container">
+        <div class="glass p-5 text-center">
+            <div class="mb-3">
+                <i class="bi bi-emoji-smile fs-1 text-gradient"></i>
+            </div>
+            <h3 class="text-white">
+                Welcome back, <span class="gradient-text">{{ user.username }}</span>! 👋
+            </h3>
+            <p class="text-muted mb-4">Continue your skill exchange journey</p>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <a href="{% url 'profile' %}" class="btn btn-glow">
+                    <i class="bi bi-person me-1"></i> My Profile
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
 {% endblock %}
 
 {% block extra_js %}
