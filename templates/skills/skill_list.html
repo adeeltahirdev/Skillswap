@@ -1,0 +1,529 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Browse Skills - Skill Swap{% endblock %}
+
+{% block content %}
+<!-- ======================================== -->
+<!-- PAGE HEADER                              -->
+<!-- ======================================== -->
+<section class="page-header-section py-4">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="page-title">
+                    <i class="bi bi-compass me-2 text-gradient"></i>
+                    Browse Skills
+                </h1>
+                <p class="page-subtitle text-muted">
+                    Discover skills to learn or teach. Find your perfect match today.
+                </p>
+            </div>
+            <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                {% if user.is_authenticated %}
+                <button class="btn btn-glow" onclick="openModal('addSkillModal')">
+                    <i class="bi bi-plus-circle me-1"></i> Add Your Skill
+                </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================== -->
+<!-- FILTERS & SEARCH                         -->
+<!-- ======================================== -->
+<section class="filters-section">
+    <div class="container">
+        <div class="glass p-4">
+            <form method="GET" action="{% url 'skill_list' %}" class="row g-3 align-items-end" id="filterForm">
+                <!-- Search -->
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label text-white-50 small fw-semibold">Search Skills</label>
+                    <div class="search-wrapper">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="text" 
+                               name="q" 
+                               class="form-control search-input" 
+                               placeholder="Search by skill name..." 
+                               value="{{ request.GET.q }}">
+                    </div>
+                </div>
+                
+                <!-- Category Filter -->
+                <div class="col-lg-3 col-md-6">
+                    <label class="form-label text-white-50 small fw-semibold">Category</label>
+                    <select name="category" class="form-select filter-select">
+                        <option value="">All Categories</option>
+                        <option value="programming" {% if request.GET.category == 'programming' %}selected{% endif %}>Programming</option>
+                        <option value="design" {% if request.GET.category == 'design' %}selected{% endif %}>Design</option>
+                        <option value="music" {% if request.GET.category == 'music' %}selected{% endif %}>Music</option>
+                        <option value="arts" {% if request.GET.category == 'arts' %}selected{% endif %}>Arts</option>
+                        <option value="language" {% if request.GET.category == 'language' %}selected{% endif %}>Language</option>
+                        <option value="business" {% if request.GET.category == 'business' %}selected{% endif %}>Business</option>
+                        <option value="fitness" {% if request.GET.category == 'fitness' %}selected{% endif %}>Fitness</option>
+                        <option value="other" {% if request.GET.category == 'other' %}selected{% endif %}>Other</option>
+                    </select>
+                </div>
+                
+                <!-- Skill Type Filter -->
+                <div class="col-lg-2 col-md-6">
+                    <label class="form-label text-white-50 small fw-semibold">Skill Type</label>
+                    <select name="type" class="form-select filter-select">
+                        <option value="">All Types</option>
+                        <option value="offer" {% if request.GET.type == 'offer' %}selected{% endif %}>I Can Teach</option>
+                        <option value="want" {% if request.GET.type == 'want' %}selected{% endif %}>I Want to Learn</option>
+                    </select>
+                </div>
+                
+                <!-- Sort -->
+                <div class="col-lg-2 col-md-6">
+                    <label class="form-label text-white-50 small fw-semibold">Sort By</label>
+                    <select name="sort" class="form-select filter-select">
+                        <option value="newest" {% if request.GET.sort == 'newest' %}selected{% endif %}>Newest</option>
+                        <option value="rating" {% if request.GET.sort == 'rating' %}selected{% endif %}>Highest Rated</option>
+                        <option value="popular" {% if request.GET.sort == 'popular' %}selected{% endif %}>Most Popular</option>
+                        <option value="az" {% if request.GET.sort == 'az' %}selected{% endif %}>A-Z</option>
+                    </select>
+                </div>
+                
+                <!-- Filter & Reset Buttons -->
+                <div class="col-lg-1 col-md-12">
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-glow w-100">
+                            <i class="bi bi-funnel"></i>
+                        </button>
+                        <a href="{% url 'skill_list' %}" class="btn btn-outline-glass w-100">
+                            <i class="bi bi-arrow-counterclockwise"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+            
+            <!-- Active Filters -->
+            {% if request.GET.q or request.GET.category or request.GET.type or request.GET.sort %}
+            <div class="active-filters mt-3 d-flex flex-wrap gap-2">
+                <span class="text-white-50 small me-2">Active Filters:</span>
+                {% if request.GET.q %}
+                <span class="filter-tag">
+                    <i class="bi bi-search me-1"></i> {{ request.GET.q }}
+                    <a href="?{% for key, value in request.GET.items %}{% if key != 'q' %}{{ key }}={{ value }}&{% endif %}{% endfor %}" class="filter-remove">
+                        <i class="bi bi-x"></i>
+                    </a>
+                </span>
+                {% endif %}
+                {% if request.GET.category %}
+                <span class="filter-tag">
+                    <i class="bi bi-tag me-1"></i> {{ request.GET.category|title }}
+                    <a href="?{% for key, value in request.GET.items %}{% if key != 'category' %}{{ key }}={{ value }}&{% endif %}{% endfor %}" class="filter-remove">
+                        <i class="bi bi-x"></i>
+                    </a>
+                </span>
+                {% endif %}
+                {% if request.GET.type %}
+                <span class="filter-tag">
+                    <i class="bi bi-arrow-left-right me-1"></i> 
+                    {% if request.GET.type == 'offer' %}I Can Teach{% else %}I Want to Learn{% endif %}
+                    <a href="?{% for key, value in request.GET.items %}{% if key != 'type' %}{{ key }}={{ value }}&{% endif %}{% endfor %}" class="filter-remove">
+                        <i class="bi bi-x"></i>
+                    </a>
+                </span>
+                {% endif %}
+                {% if request.GET.sort %}
+                <span class="filter-tag">
+                    <i class="bi bi-arrow-up me-1"></i> 
+                    {% if request.GET.sort == 'newest' %}Newest{% elif request.GET.sort == 'rating' %}Highest Rated{% elif request.GET.sort == 'popular' %}Most Popular{% else %}A-Z{% endif %}
+                    <a href="?{% for key, value in request.GET.items %}{% if key != 'sort' %}{{ key }}={{ value }}&{% endif %}{% endfor %}" class="filter-remove">
+                        <i class="bi bi-x"></i>
+                    </a>
+                </span>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- ======================================== -->
+<!-- RESULTS COUNT                            -->
+<!-- ======================================== -->
+<section class="results-count-section mt-3">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <span class="text-white-50">
+                <i class="bi bi-grid me-1"></i>
+                Showing <strong class="text-white">{{ skills|length }}</strong> skills
+            </span>
+            <span class="text-white-50 small">
+                {% if request.GET.q or request.GET.category or request.GET.type %}
+                Filtered results
+                {% else %}
+                All skills
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================== -->
+<!-- SKILLS GRID                              -->
+<!-- ======================================== -->
+<section class="skills-grid-section py-4">
+    <div class="container">
+        {% if skills %}
+        <div class="row g-4">
+            {% for skill in skills %}
+            <div class="col-lg-4 col-md-6">
+                <div class="skill-card animate-on-scroll">
+                    <!-- Skill Type Badge -->
+                    <div class="skill-type-badge">
+                        {% if skill.skill_type == 'offer' %}
+                        <span class="badge bg-success">
+                            <i class="bi bi-arrow-up-circle me-1"></i> I Can Teach
+                        </span>
+                        {% else %}
+                        <span class="badge bg-primary">
+                            <i class="bi bi-arrow-down-circle me-1"></i> I Want to Learn
+                        </span>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Skill Icon & Header -->
+                    <div class="skill-card-header">
+                        <div class="skill-icon skill-color-{{ forloop.counter0|divisibleby:3 }}">
+                            <i class="{{ skill.icon|default:'bi bi-tools' }}"></i>
+                        </div>
+                        <div class="skill-meta">
+                            <span class="skill-category">{{ skill.get_category_display|default:skill.category|title }}</span>
+                            <span class="skill-rating">
+                                <i class="bi bi-star-fill text-warning"></i> 
+                                {% with rating=skill.user.profile.rating|default:0 %}
+                                {{ rating|floatformat:1 }}
+                                {% endwith %}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <!-- Skill Info -->
+                    <h5 class="skill-name">{{ skill.name }}</h5>
+                    <p class="skill-description">{{ skill.description|truncatechars:100|default:"No description provided." }}</p>
+                    
+                    <!-- Teacher / Owner -->
+                    <div class="skill-footer">
+                        <div class="skill-teacher">
+                            <img src="https://ui-avatars.com/api/?name={{ skill.user.username|urlencode }}&background=7c3aed&color=fff&size=32" alt="{{ skill.user.username }}" class="teacher-avatar">
+                            <span class="teacher-name">{{ skill.user.get_full_name|default:skill.user.username }}</span>
+                        </div>
+                        <a href="{% url 'skill_detail' pk=skill.id %}" class="btn btn-glow btn-sm">
+                            View Skill <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <nav aria-label="Page navigation" class="mt-5">
+            <ul class="pagination justify-content-center custom-pagination">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" aria-label="Previous">
+                        <i class="bi bi-chevron-left"></i>
+                    </a>
+                </li>
+                {% endif %}
+                
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{{ num }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" aria-label="Next">
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+        
+        {% else %}
+        <!-- Empty State -->
+        <div class="empty-state-large text-center py-5">
+            <div class="empty-state-icon">
+                <i class="bi bi-compass"></i>
+            </div>
+            <h3 class="text-white mt-3">No Skills Found</h3>
+            <p class="text-muted">Try adjusting your filters or search terms.</p>
+            <div class="mt-4">
+                <a href="{% url 'skill_list' %}" class="btn btn-glow">
+                    <i class="bi bi-arrow-counterclockwise me-1"></i> Clear Filters
+                </a>
+                {% if user.is_authenticated %}
+                <button class="btn btn-outline-glass ms-2" onclick="openModal('addSkillModal')">
+                    <i class="bi bi-plus-circle me-1"></i> Add Your Skill
+                </button>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- ======================================== -->
+<!-- ADD SKILL MODAL                          -->
+<!-- ======================================== -->
+<div class="modal-overlay" id="addSkillModal">
+    <div class="modal-container">
+        <div class="modal-content glass-modal">
+            <div class="modal-header border-0">
+                <h5 class="modal-title text-white">
+                    <i class="bi bi-plus-circle me-2 text-gradient"></i> Add New Skill
+                </h5>
+                <button type="button" class="modal-close" onclick="closeModal('addSkillModal')">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addSkillForm">
+                    <!-- Skill Name -->
+                    <div class="mb-3">
+                        <label class="form-label text-white-50">Skill Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="skillName" placeholder="e.g., Python, Guitar, Photoshop" required>
+                    </div>
+                    
+                    <!-- Category -->
+                    <div class="mb-3">
+                        <label class="form-label text-white-50">Category <span class="text-danger">*</span></label>
+                        <select class="form-select" id="skillCategory" required>
+                            <option value="">Select category</option>
+                            <option value="programming">Programming</option>
+                            <option value="design">Design</option>
+                            <option value="music">Music</option>
+                            <option value="arts">Arts</option>
+                            <option value="language">Language</option>
+                            <option value="business">Business</option>
+                            <option value="fitness">Fitness</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Skill Type -->
+                    <div class="mb-3">
+                        <label class="form-label text-white-50">Skill Type <span class="text-danger">*</span></label>
+                        <div class="d-flex gap-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="skillType" id="offerSkill" value="offer" checked>
+                                <label class="form-check-label text-white-50" for="offerSkill">
+                                    <i class="bi bi-arrow-up-circle text-success me-1"></i> I can teach this
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="skillType" id="wantSkill" value="want">
+                                <label class="form-check-label text-white-50" for="wantSkill">
+                                    <i class="bi bi-arrow-down-circle text-primary me-1"></i> I want to learn this
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label class="form-label text-white-50">Description</label>
+                        <textarea class="form-control" id="skillDescription" rows="3" placeholder="Describe your skill level, experience, or what you're looking for..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-outline-glass" onclick="closeModal('addSkillModal')">Cancel</button>
+                <button type="button" class="btn btn-glow" onclick="addSkill()">
+                    <i class="bi bi-plus-circle me-1"></i> Add Skill
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Store CSRF token
+    var csrfToken = "{{ csrf_token }}";
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        // Auto-submit form on select change
+        var filterSelects = document.querySelectorAll('.filter-select');
+        filterSelects.forEach(function(select) {
+            select.addEventListener('change', function() {
+                this.closest('form').submit();
+            });
+        });
+        
+        // Search with debounce
+        var searchInput = document.querySelector('.search-input');
+        var searchTimeout;
+        
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(function() {
+                    searchInput.closest('form').submit();
+                }, 500);
+            });
+        }
+        
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeAllModals();
+            }
+        });
+    });
+    
+    // ========================================
+    // MODAL FUNCTIONS
+    // ========================================
+    
+    function openModal(modalId) {
+        var modal = document.getElementById(modalId);
+        if (modal) {
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            var firstInput = modal.querySelector('input, textarea, select');
+            if (firstInput) {
+                setTimeout(function() {
+                    firstInput.focus();
+                }, 100);
+            }
+        }
+    }
+    
+    function closeModal(modalId) {
+        var modal = document.getElementById(modalId);
+        if (modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    }
+    
+    function closeAllModals() {
+        document.querySelectorAll('.modal-overlay').forEach(function(modal) {
+            modal.style.display = 'none';
+        });
+        document.body.style.overflow = 'auto';
+    }
+    
+    // Close modal when clicking outside
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('modal-overlay')) {
+            closeModal(e.target.id);
+        }
+    });
+    
+    // ========================================
+    // ADD SKILL FUNCTION
+    // ========================================
+    
+    function addSkill() {
+        var name = document.getElementById('skillName').value.trim();
+        var category = document.getElementById('skillCategory').value;
+        var skillType = document.querySelector('input[name="skillType"]:checked').value;
+        var description = document.getElementById('skillDescription').value.trim();
+        
+        // Validate
+        if (!name) {
+            showNotification('Please enter a skill name', 'error');
+            document.getElementById('skillName').focus();
+            return;
+        }
+        
+        if (!category) {
+            showNotification('Please select a category', 'error');
+            document.getElementById('skillCategory').focus();
+            return;
+        }
+        
+        // Show loading state
+        var addBtn = document.querySelector('#addSkillModal .btn-glow');
+        var originalText = addBtn.innerHTML;
+        addBtn.innerHTML = '<i class="bi bi-hourglass-split me-1"></i> Adding...';
+        addBtn.disabled = true;
+        
+        // Send AJAX request
+        fetch('/api/add-skill/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
+            },
+            body: JSON.stringify({
+                name: name,
+                category: category,
+                skill_type: skillType,
+                description: description
+            })
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            if (data.success) {
+                closeModal('addSkillModal');
+                document.getElementById('addSkillForm').reset();
+                showNotification(data.message, 'success');
+                // Reload page to show new skill
+                setTimeout(function() {
+                    location.reload();
+                }, 1000);
+            } else {
+                showNotification(data.message, 'error');
+            }
+        })
+        .catch(function(error) {
+            showNotification('Error adding skill', 'error');
+            console.error('Error:', error);
+        })
+        .finally(function() {
+            addBtn.innerHTML = originalText;
+            addBtn.disabled = false;
+        });
+    }
+    
+    // ========================================
+    // NOTIFICATION HELPER
+    // ========================================
+    
+    function showNotification(message, type) {
+        type = type || 'success';
+        var colors = {
+            success: '#10b981',
+            error: '#ef4444',
+            info: '#3b82f6',
+            warning: '#f59e0b'
+        };
+        
+        var color = colors[type] || colors.info;
+        var notification = document.createElement('div');
+        notification.style.cssText = 'position: fixed; top: 100px; right: 20px; background: ' + color + '; color: white; padding: 16px 24px; border-radius: 12px; font-weight: 500; z-index: 99999; box-shadow: 0 8px 30px rgba(0,0,0,0.3); animation: slideInRight 0.5s ease; max-width: 400px;';
+        notification.textContent = message;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(function() {
+            notification.style.animation = 'slideOutRight 0.5s ease';
+            setTimeout(function() {
+                notification.remove();
+            }, 500);
+        }, 3000);
+    }
+</script>
+{% endblock %}

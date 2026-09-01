@@ -1078,7 +1078,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 3rem;
     font-weight: 800;
     background: var(--gradient-primary);
-    -webkit-background-clip: text;
+    /* -webkit-background-clip: text; */
     -webkit-text-fill-color: transparent;
     opacity: 0.15;
     position: absolute;
@@ -2929,5 +2929,908 @@ h1, h2, h3, h4, h5, h6 {
         flex-direction: column;
         align-items: flex-start;
         gap: 2px;
+    }
+}
+
+/* ================================================
+   SKILL LIST PAGE
+   ================================================ */
+
+/* ----- Page Header ----- */
+.page-header-section {
+    padding: 1rem 0;
+}
+
+.page-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.25rem;
+}
+
+.page-subtitle {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* ----- Filters ----- */
+.filters-section .glass {
+    border-radius: 20px;
+    padding: 1.5rem;
+}
+
+.search-wrapper {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.search-input {
+    padding-left: 40px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.06);
+    color: white;
+    border-radius: 12px;
+    height: 44px;
+}
+
+.search-input:focus {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+    color: white;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.filter-select {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.06);
+    color: white;
+    border-radius: 12px;
+    height: 44px;
+    cursor: pointer;
+}
+
+.filter-select:focus {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+    color: white;
+}
+
+.filter-select option {
+    background: #1a1a2e;
+    color: white;
+}
+
+/* ----- Active Filters ----- */
+.active-filters {
+    padding-top: 0.5rem;
+}
+
+.filter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(124, 58, 237, 0.1);
+    border: 1px solid rgba(124, 58, 237, 0.15);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+}
+
+.filter-remove {
+    color: rgba(255, 255, 255, 0.3);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    margin-left: 2px;
+}
+
+.filter-remove:hover {
+    color: #ef4444;
+}
+
+/* ----- Skill Cards ----- */
+.skill-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.skill-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(124, 58, 237, 0.2);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.skill-type-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.skill-type-badge .badge {
+    font-weight: 500;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+}
+
+.skill-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    padding-right: 80px;
+}
+
+.skill-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.skill-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.skill-category {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0.2rem 0.7rem;
+    border-radius: 50px;
+}
+
+.skill-rating {
+    font-size: 0.85rem;
+    color: #f59e0b;
+}
+
+.skill-rating i {
+    margin-right: 4px;
+}
+
+.skill-name {
+    color: white;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.skill-description {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex: 1;
+}
+
+.skill-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.skill-teacher {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.teacher-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.06);
+    object-fit: cover;
+}
+
+.teacher-name {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+}
+
+.skill-footer .btn-sm {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+}
+
+/* ----- Pagination ----- */
+.custom-pagination .page-link {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.5);
+    padding: 0.6rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.custom-pagination .page-link:hover {
+    background: rgba(124, 58, 237, 0.1);
+    border-color: rgba(124, 58, 237, 0.2);
+    color: white;
+}
+
+.custom-pagination .page-item.active .page-link {
+    background: var(--gradient-primary);
+    border-color: transparent;
+    color: white;
+}
+
+.custom-pagination .page-item.disabled .page-link {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.02);
+    color: rgba(255, 255, 255, 0.1);
+}
+
+/* ----- Empty State ----- */
+.empty-state-large {
+    padding: 4rem 2rem;
+}
+
+.empty-state-icon {
+    font-size: 5rem;
+    color: rgba(255, 255, 255, 0.03);
+}
+
+.empty-state-icon i {
+    display: block;
+}
+
+/* ----- Responsive ----- */
+@media (max-width: 991.98px) {
+    .page-title {
+        font-size: 1.8rem;
+    }
+    
+    .skill-card {
+        padding: 1.25rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .filters-section .glass {
+        padding: 1rem;
+    }
+    
+    .filters-section .row {
+        gap: 0.5rem;
+    }
+    
+    .page-title {
+        font-size: 1.5rem;
+    }
+    
+    .skill-type-badge {
+        position: relative;
+        top: 0;
+        right: 0;
+        margin-bottom: 0.5rem;
+    }
+    
+    .skill-card-header {
+        padding-right: 0;
+        flex-wrap: wrap;
+    }
+    
+    .skill-meta {
+        align-items: flex-start;
+        width: 100%;
+        flex-direction: row;
+        gap: 8px;
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .page-header-section .row {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .page-header-section .text-lg-end {
+        text-align: center !important;
+    }
+    
+    .filters-section .d-flex {
+        flex-direction: column;
+    }
+    
+    .filters-section .d-flex .btn {
+        width: 100%;
+    }
+    
+    .skill-footer {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .skill-footer .btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+}
+
+/* ================================================
+   SKILL COLOR CLASSES (replacing inline styles)
+   ================================================ */
+
+.skill-color-0 {
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+}
+
+.skill-color-1 {
+    background: linear-gradient(135deg, #06b6d4, #10b981);
+}
+
+.skill-color-2 {
+    background: linear-gradient(135deg, #ec4899, #8b5cf6);
+}
+
+/* ================================================
+   SKILL LIST PAGE
+   ================================================ */
+
+/* ----- Page Header ----- */
+.page-header-section {
+    padding: 1rem 0;
+}
+
+.page-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.25rem;
+}
+
+.page-subtitle {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* ----- Filters ----- */
+.filters-section .glass {
+    border-radius: 20px;
+    padding: 1.5rem;
+}
+
+.search-wrapper {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.search-input {
+    padding-left: 40px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.06);
+    color: white;
+    border-radius: 12px;
+    height: 44px;
+    width: 100%;
+}
+
+.search-input:focus {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+    color: white;
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.filter-select {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.06);
+    color: white;
+    border-radius: 12px;
+    height: 44px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.filter-select:focus {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+    color: white;
+    outline: none;
+}
+
+.filter-select option {
+    background: #1a1a2e;
+    color: white;
+}
+
+/* ----- Active Filters ----- */
+.active-filters {
+    padding-top: 0.5rem;
+}
+
+.filter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(124, 58, 237, 0.1);
+    border: 1px solid rgba(124, 58, 237, 0.15);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+}
+
+.filter-remove {
+    color: rgba(255, 255, 255, 0.3);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    margin-left: 2px;
+}
+
+.filter-remove:hover {
+    color: #ef4444;
+}
+
+/* ----- Skill Cards ----- */
+.skill-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.skill-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(124, 58, 237, 0.2);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.skill-type-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.skill-type-badge .badge {
+    font-weight: 500;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+}
+
+.skill-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    padding-right: 80px;
+}
+
+.skill-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.skill-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.skill-category {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0.2rem 0.7rem;
+    border-radius: 50px;
+}
+
+.skill-rating {
+    font-size: 0.85rem;
+    color: #f59e0b;
+}
+
+.skill-rating i {
+    margin-right: 4px;
+}
+
+.skill-name {
+    color: white;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.skill-description {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex: 1;
+}
+
+.skill-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.skill-teacher {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.teacher-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.06);
+    object-fit: cover;
+}
+
+.teacher-name {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+}
+
+.skill-footer .btn-sm {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+}
+
+/* ----- Pagination ----- */
+.custom-pagination .page-link {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.5);
+    padding: 0.6rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.custom-pagination .page-link:hover {
+    background: rgba(124, 58, 237, 0.1);
+    border-color: rgba(124, 58, 237, 0.2);
+    color: white;
+}
+
+.custom-pagination .page-item.active .page-link {
+    background: var(--gradient-primary);
+    border-color: transparent;
+    color: white;
+}
+
+.custom-pagination .page-item.disabled .page-link {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.02);
+    color: rgba(255, 255, 255, 0.1);
+}
+
+/* ----- Empty State ----- */
+.empty-state-large {
+    padding: 4rem 2rem;
+}
+
+.empty-state-icon {
+    font-size: 5rem;
+    color: rgba(255, 255, 255, 0.03);
+}
+
+.empty-state-icon i {
+    display: block;
+}
+
+/* ----- Modal Styles (reuse from profile) ----- */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-container {
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease;
+}
+
+.modal-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 10px;
+}
+
+.modal-container::-webkit-scrollbar-thumb {
+    background: rgba(124, 58, 237, 0.3);
+    border-radius: 10px;
+}
+
+.modal-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(124, 58, 237, 0.5);
+}
+
+.glass-modal {
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    padding: 0.5rem 1.5rem 1.5rem 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.glass-modal .form-control,
+.glass-modal .form-select {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.06);
+    color: white;
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.glass-modal .form-control:focus,
+.glass-modal .form-select:focus {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+    outline: none;
+    color: white;
+}
+
+.glass-modal .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.glass-modal .form-check-input {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+}
+
+.glass-modal .form-check-input:checked {
+    background: #7c3aed;
+    border-color: #7c3aed;
+}
+
+.glass-modal .form-check-input:focus {
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+}
+
+.glass-modal .form-check-label {
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+}
+
+.glass-modal .text-muted {
+    color: rgba(255, 255, 255, 0.3) !important;
+    font-size: 0.8rem;
+}
+
+/* ----- Animations ----- */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOutRight {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+}
+
+/* ----- Responsive ----- */
+@media (max-width: 991.98px) {
+    .page-title {
+        font-size: 1.8rem;
+    }
+    
+    .skill-card {
+        padding: 1.25rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .filters-section .glass {
+        padding: 1rem;
+    }
+    
+    .filters-section .row {
+        gap: 0.5rem;
+    }
+    
+    .page-title {
+        font-size: 1.5rem;
+    }
+    
+    .skill-type-badge {
+        position: relative;
+        top: 0;
+        right: 0;
+        margin-bottom: 0.5rem;
+    }
+    
+    .skill-card-header {
+        padding-right: 0;
+        flex-wrap: wrap;
+    }
+    
+    .skill-meta {
+        align-items: flex-start;
+        width: 100%;
+        flex-direction: row;
+        gap: 8px;
+        margin-top: 0.5rem;
+    }
+    
+    .modal-container {
+        width: 95%;
+        max-height: 95vh;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+    }
+    
+    .modal-header {
+        padding: 1rem 1rem 0.5rem 1rem;
+    }
+    
+    .modal-footer {
+        padding: 0.5rem 1rem 1rem 1rem;
+        flex-direction: column-reverse;
+    }
+    
+    .modal-footer .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .page-header-section .row {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .page-header-section .text-lg-end {
+        text-align: center !important;
+    }
+    
+    .filters-section .d-flex {
+        flex-direction: column;
+    }
+    
+    .filters-section .d-flex .btn {
+        width: 100%;
+    }
+    
+    .skill-footer {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .skill-footer .btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
     }
 }
