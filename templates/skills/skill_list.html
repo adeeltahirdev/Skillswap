@@ -19,13 +19,6 @@
                     Discover skills to learn or teach. Find your perfect match today.
                 </p>
             </div>
-            <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
-                {% if user.is_authenticated %}
-                <button class="btn btn-glow" onclick="openModal('addSkillModal')">
-                    <i class="bi bi-plus-circle me-1"></i> Add Your Skill
-                </button>
-                {% endif %}
-            </div>
         </div>
     </div>
 </section>
@@ -152,7 +145,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <span class="text-white-50">
                 <i class="bi bi-grid me-1"></i>
-                Showing <strong class="text-white">{{ skills|length }}</strong> skills
+                Showing <strong class="text-white">{{ page_obj.paginator.count }}</strong> skills
             </span>
             <span class="text-white-50 small">
                 {% if request.GET.q or request.GET.category or request.GET.type %}
@@ -170,9 +163,9 @@
 <!-- ======================================== -->
 <section class="skills-grid-section py-4">
     <div class="container">
-        {% if skills %}
+        {% if page_obj %}
         <div class="row g-4">
-            {% for skill in skills %}
+            {% for skill in page_obj %}
             <div class="col-lg-4 col-md-6">
                 <div class="skill-card animate-on-scroll">
                     <!-- Skill Type Badge -->
@@ -224,7 +217,7 @@
         </div>
         
         <!-- Pagination -->
-        {% if is_paginated %}
+        {% if page_obj.has_other_pages %}
         <nav aria-label="Page navigation" class="mt-5">
             <ul class="pagination justify-content-center custom-pagination">
                 {% if page_obj.has_previous %}
@@ -268,97 +261,15 @@
                 <a href="{% url 'skill_list' %}" class="btn btn-glow">
                     <i class="bi bi-arrow-counterclockwise me-1"></i> Clear Filters
                 </a>
-                {% if user.is_authenticated %}
-                <button class="btn btn-outline-glass ms-2" onclick="openModal('addSkillModal')">
-                    <i class="bi bi-plus-circle me-1"></i> Add Your Skill
-                </button>
-                {% endif %}
             </div>
         </div>
         {% endif %}
     </div>
 </section>
-
-<!-- ======================================== -->
-<!-- ADD SKILL MODAL                          -->
-<!-- ======================================== -->
-<div class="modal-overlay" id="addSkillModal">
-    <div class="modal-container">
-        <div class="modal-content glass-modal">
-            <div class="modal-header border-0">
-                <h5 class="modal-title text-white">
-                    <i class="bi bi-plus-circle me-2 text-gradient"></i> Add New Skill
-                </h5>
-                <button type="button" class="modal-close" onclick="closeModal('addSkillModal')">
-                    <i class="bi bi-x-lg"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="addSkillForm">
-                    <!-- Skill Name -->
-                    <div class="mb-3">
-                        <label class="form-label text-white-50">Skill Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="skillName" placeholder="e.g., Python, Guitar, Photoshop" required>
-                    </div>
-                    
-                    <!-- Category -->
-                    <div class="mb-3">
-                        <label class="form-label text-white-50">Category <span class="text-danger">*</span></label>
-                        <select class="form-select" id="skillCategory" required>
-                            <option value="">Select category</option>
-                            <option value="programming">Programming</option>
-                            <option value="design">Design</option>
-                            <option value="music">Music</option>
-                            <option value="arts">Arts</option>
-                            <option value="language">Language</option>
-                            <option value="business">Business</option>
-                            <option value="fitness">Fitness</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    
-                    <!-- Skill Type -->
-                    <div class="mb-3">
-                        <label class="form-label text-white-50">Skill Type <span class="text-danger">*</span></label>
-                        <div class="d-flex gap-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="skillType" id="offerSkill" value="offer" checked>
-                                <label class="form-check-label text-white-50" for="offerSkill">
-                                    <i class="bi bi-arrow-up-circle text-success me-1"></i> I can teach this
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="skillType" id="wantSkill" value="want">
-                                <label class="form-check-label text-white-50" for="wantSkill">
-                                    <i class="bi bi-arrow-down-circle text-primary me-1"></i> I want to learn this
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Description -->
-                    <div class="mb-3">
-                        <label class="form-label text-white-50">Description</label>
-                        <textarea class="form-control" id="skillDescription" rows="3" placeholder="Describe your skill level, experience, or what you're looking for..."></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer border-0">
-                <button type="button" class="btn btn-outline-glass" onclick="closeModal('addSkillModal')">Cancel</button>
-                <button type="button" class="btn btn-glow" onclick="addSkill()">
-                    <i class="bi bi-plus-circle me-1"></i> Add Skill
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock %}
 
 {% block extra_js %}
 <script>
-    // Store CSRF token
-    var csrfToken = "{{ csrf_token }}";
-    
     document.addEventListener('DOMContentLoaded', function() {
         // Auto-submit form on select change
         var filterSelects = document.querySelectorAll('.filter-select');
@@ -380,150 +291,6 @@
                 }, 500);
             });
         }
-        
-        // Close modal on Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeAllModals();
-            }
-        });
     });
-    
-    // ========================================
-    // MODAL FUNCTIONS
-    // ========================================
-    
-    function openModal(modalId) {
-        var modal = document.getElementById(modalId);
-        if (modal) {
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-            var firstInput = modal.querySelector('input, textarea, select');
-            if (firstInput) {
-                setTimeout(function() {
-                    firstInput.focus();
-                }, 100);
-            }
-        }
-    }
-    
-    function closeModal(modalId) {
-        var modal = document.getElementById(modalId);
-        if (modal) {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-    }
-    
-    function closeAllModals() {
-        document.querySelectorAll('.modal-overlay').forEach(function(modal) {
-            modal.style.display = 'none';
-        });
-        document.body.style.overflow = 'auto';
-    }
-    
-    // Close modal when clicking outside
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('modal-overlay')) {
-            closeModal(e.target.id);
-        }
-    });
-    
-    // ========================================
-    // ADD SKILL FUNCTION
-    // ========================================
-    
-    function addSkill() {
-        var name = document.getElementById('skillName').value.trim();
-        var category = document.getElementById('skillCategory').value;
-        var skillType = document.querySelector('input[name="skillType"]:checked').value;
-        var description = document.getElementById('skillDescription').value.trim();
-        
-        // Validate
-        if (!name) {
-            showNotification('Please enter a skill name', 'error');
-            document.getElementById('skillName').focus();
-            return;
-        }
-        
-        if (!category) {
-            showNotification('Please select a category', 'error');
-            document.getElementById('skillCategory').focus();
-            return;
-        }
-        
-        // Show loading state
-        var addBtn = document.querySelector('#addSkillModal .btn-glow');
-        var originalText = addBtn.innerHTML;
-        addBtn.innerHTML = '<i class="bi bi-hourglass-split me-1"></i> Adding...';
-        addBtn.disabled = true;
-        
-        // Send AJAX request
-        fetch('/api/add-skill/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken
-            },
-            body: JSON.stringify({
-                name: name,
-                category: category,
-                skill_type: skillType,
-                description: description
-            })
-        })
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(data) {
-            if (data.success) {
-                closeModal('addSkillModal');
-                document.getElementById('addSkillForm').reset();
-                showNotification(data.message, 'success');
-                // Reload page to show new skill
-                setTimeout(function() {
-                    location.reload();
-                }, 1000);
-            } else {
-                showNotification(data.message, 'error');
-            }
-        })
-        .catch(function(error) {
-            showNotification('Error adding skill', 'error');
-            console.error('Error:', error);
-        })
-        .finally(function() {
-            addBtn.innerHTML = originalText;
-            addBtn.disabled = false;
-        });
-    }
-    
-    // ========================================
-    // NOTIFICATION HELPER
-    // ========================================
-    
-    function showNotification(message, type) {
-        type = type || 'success';
-        var colors = {
-            success: '#10b981',
-            error: '#ef4444',
-            info: '#3b82f6',
-            warning: '#f59e0b'
-        };
-        
-        var color = colors[type] || colors.info;
-        var notification = document.createElement('div');
-        notification.style.cssText = 'position: fixed; top: 100px; right: 20px; background: ' + color + '; color: white; padding: 16px 24px; border-radius: 12px; font-weight: 500; z-index: 99999; box-shadow: 0 8px 30px rgba(0,0,0,0.3); animation: slideInRight 0.5s ease; max-width: 400px;';
-        notification.textContent = message;
-        
-        document.body.appendChild(notification);
-        
-        setTimeout(function() {
-            notification.style.animation = 'slideOutRight 0.5s ease';
-            setTimeout(function() {
-                notification.remove();
-            }, 500);
-        }, 3000);
-    }
 </script>
 {% endblock %}

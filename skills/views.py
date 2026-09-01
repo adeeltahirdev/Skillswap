@@ -1,9 +1,7 @@
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from django.db.models import Q
 from .models import Skill
-
 
 def home(request):
     return render(request, 'index.html')
@@ -46,14 +44,33 @@ def skill_list(request):
         skills = skills.order_by('name')
     
     # Pagination
-    paginator = Paginator(skills, 12)  # 12 skills per page
+    paginator = Paginator(skills, 12)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
     context = {
-        'skills': page_obj,
         'page_obj': page_obj,
-        'is_paginated': page_obj.has_other_pages(),
+        'skills': page_obj,
     }
     
     return render(request, 'skills/skill_list.html', context)
+
+def skill_detail(request, pk):
+    """
+    Display detailed view of a single skill
+    """
+    skill = get_object_or_404(Skill.objects.select_related('user', 'user__profile'), pk=pk)
+    
+    # Get similar skills (same category, exclude current)
+    similar_skills = Skill.objects.filter(
+        category=skill.category
+    ).exclude(
+        id=skill.id
+    ).select_related('user')[:4]
+    
+    context = {
+        'skill': skill,
+        'similar_skills': similar_skills,
+    }
+    
+    return render(request, 'skills/skill_detail.html', context)

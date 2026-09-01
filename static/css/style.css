@@ -3834,3 +3834,172 @@ h1, h2, h3, h4, h5, h6 {
         justify-content: center;
     }
 }
+
+/* ================================================
+   SKILL DETAIL PAGE
+   ================================================ */
+
+/* ----- Breadcrumb ----- */
+.breadcrumb {
+    background: transparent;
+    padding: 0;
+}
+
+.breadcrumb-item a {
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.2s ease;
+}
+
+.breadcrumb-item a:hover {
+    color: #8b5cf6;
+}
+
+.breadcrumb-item.active {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+/* ----- Skill Detail Header ----- */
+.skill-detail-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.skill-detail-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+.skill-detail-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+}
+
+.skill-detail-meta .meta-item {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.skill-detail-meta .meta-item i {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* ----- Skill Description ----- */
+.skill-detail-description {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+/* ----- Teacher Profile ----- */
+.teacher-profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid rgba(124, 58, 237, 0.3);
+    object-fit: cover;
+}
+
+.teacher-stats .stat-number {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    color: white;
+}
+
+.teacher-stats .stat-label {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.teacher-bio p {
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.6;
+}
+
+/* ----- Similar Skills ----- */
+.similar-skill-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.similar-skill-card:hover {
+    border-color: rgba(124, 58, 237, 0.15);
+    transform: translateX(4px);
+}
+
+.similar-skill-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+/* ----- Responsive ----- */
+@media (max-width: 991.98px) {
+    .skill-detail-title {
+        font-size: 2rem;
+    }
+    
+    .skill-detail-title-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .skill-detail-title {
+        font-size: 1.6rem;
+    }
+    
+    .skill-detail-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.2rem;
+    }
+    
+    .skill-detail-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .skill-detail-title {
+        font-size: 1.4rem;
+    }
+    
+    .skill-detail-header .text-lg-end {
+        text-align: center !important;
+        margin-top: 1rem;
+    }
+    
+    .skill-detail-header .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
