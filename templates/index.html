@@ -33,14 +33,14 @@
                             <a href="{% url 'profile' %}" class="btn btn-glow btn-lg">
                                 <i class="bi bi-person me-2"></i> My Profile
                             </a>
-                            <a href="#" class="btn btn-outline-glass btn-lg">
+                            <a href="{% url 'skill_list' %}" class="btn btn-outline-glass btn-lg">
                                 <i class="bi bi-compass me-2"></i> Browse Skills
                             </a>
                         {% else %}
                             <a href="{% url 'register' %}" class="btn btn-glow btn-lg">
                                 <i class="bi bi-rocket-takeoff me-2"></i> Get Started
                             </a>
-                            <a href="#" class="btn btn-outline-glass btn-lg">
+                            <a href="{% url 'skill_list' %}" class="btn btn-outline-glass btn-lg">
                                 <i class="bi bi-compass me-2"></i> Browse Skills
                             </a>
                         {% endif %}
@@ -74,7 +74,6 @@
                             </div>
                             <div class="card-info">
                                 <h6>Photoshop</h6>
-                                <span>5 users learning</span>
                             </div>
                         </div>
                         
@@ -84,7 +83,6 @@
                             </div>
                             <div class="card-info">
                                 <h6>Guitar</h6>
-                                <span>12 users teaching</span>
                             </div>
                         </div>
                         
@@ -94,7 +92,6 @@
                             </div>
                             <div class="card-info">
                                 <h6>Python</h6>
-                                <span>8 users exchanging</span>
                             </div>
                         </div>
                     </div>
