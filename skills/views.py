@@ -1,10 +1,27 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.contrib.auth.models import User
 from .models import Skill
 
 def home(request):
-    return render(request, 'index.html')
+    """
+    Home page - shows featured skills
+    """
+    # Get featured skills (latest 6 skills)
+    featured_skills = Skill.objects.all().select_related('user', 'user__profile').order_by('-created_at')[:6]
+    
+    # Get counts
+    total_skills = Skill.objects.count()
+    total_users = User.objects.count()
+    
+    context = {
+        'featured_skills': featured_skills,
+        'total_skills': total_skills,
+        'total_users': total_users,
+    }
+    
+    return render(request, 'index.html', context)
 
 def skill_list(request):
     """

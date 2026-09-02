@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token }}">
     <title>{% block title %}Skill Swap - Exchange Skills, Learn Something New{% endblock %}</title>
     
     <!-- Bootstrap 5 CSS -->
@@ -69,17 +68,17 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'skill_list' %}">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'skill_list' %}active{% endif %}" href="{% url 'skill_list' %}">
                             <i class="bi bi-compass me-1"></i> Explore
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'my_skills' %}active{% endif %}" href="#">
                             <i class="bi bi-tools me-1"></i> My Skills
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link position-relative" href="#">
+                        <a class="nav-link position-relative {% if request.resolver_match.url_name == 'requests' %}active{% endif %}" href="#">
                             <i class="bi bi-arrow-left-right me-1"></i> Swaps
                             {% if unread_swap_requests > 0 %}
                             <span class="notification-badge">{{ unread_swap_requests }}</span>
@@ -108,7 +107,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end glass-dropdown">
                             <li>
-                                <a class="dropdown-item" href="{% url 'profile' %}">
+                                <a class="dropdown-item {% if request.resolver_match.url_name == 'profile' %}active{% endif %}" href="{% url 'profile' %}">
                                     <i class="bi bi-person"></i> My Profile
                                 </a>
                             </li>
@@ -139,7 +138,7 @@
                     {% else %}
                     <!-- Logged Out -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}" href="{% url 'login' %}">
                             <i class="bi bi-box-arrow-in-right me-1"></i> Sign In
                         </a>
                     </li>
@@ -227,11 +226,11 @@
                         Where skills meet opportunity. Join a global community of learners and teachers exchanging knowledge without money.
                     </p>
                     <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                        <!-- <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
                         <a href="#" class="social-icon"><i class="bi bi-twitter-x"></i></a>
                         <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
                         <a href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
-                        <a href="#" class="social-icon"><i class="bi bi-discord"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-discord"></i></a> -->
                     </div>
                 </div>
                 
@@ -240,7 +239,7 @@
                     <h6 class="footer-heading">Platform</h6>
                     <ul class="footer-links">
                         <li><a href="{% url 'index' %}">Home</a></li>
-                        <li><a href="#">Explore Skills</a></li>
+                        <li><a href="{% url 'skill_list' %}">Explore Skills</a></li>
                         <li><a href="#">My Skills</a></li>
                         <li><a href="#">Swap Requests</a></li>
                     </ul>
@@ -300,17 +299,17 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Auto-dismiss alerts
-            const alerts = document.querySelectorAll('.alert');
-            alerts.forEach((alert, index) => {
-                setTimeout(() => {
-                    const bsAlert = new bootstrap.Alert(alert);
+            var alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function(alert, index) {
+                setTimeout(function() {
+                    var bsAlert = new bootstrap.Alert(alert);
                     bsAlert.close();
                 }, 7000 + (index * 1000));
             });
             
             // Navbar scroll effect
-            const navbar = document.querySelector('.navbar');
-            window.addEventListener('scroll', () => {
+            var navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', function() {
                 if (window.scrollY > 50) {
                     navbar.classList.add('scrolled');
                 } else {
@@ -319,29 +318,29 @@
             });
             
             // Intersection Observer for animations
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
                     }
                 });
             }, { threshold: 0.1 });
             
-            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            document.querySelectorAll('.animate-on-scroll').forEach(function(el) {
                 observer.observe(el);
             });
             
             // Parallax mouse effect on orbs
-            const orbs = document.querySelectorAll('.orb');
-            document.addEventListener('mousemove', (e) => {
-                const x = e.clientX / window.innerWidth;
-                const y = e.clientY / window.innerHeight;
+            var orbs = document.querySelectorAll('.orb');
+            document.addEventListener('mousemove', function(e) {
+                var x = e.clientX / window.innerWidth;
+                var y = e.clientY / window.innerHeight;
                 
-                orbs.forEach((orb, i) => {
-                    const speed = (i + 1) * 20;
-                    const moveX = (x - 0.5) * speed;
-                    const moveY = (y - 0.5) * speed;
-                    orb.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                orbs.forEach(function(orb, i) {
+                    var speed = (i + 1) * 20;
+                    var moveX = (x - 0.5) * speed;
+                    var moveY = (y - 0.5) * speed;
+                    orb.style.transform = 'translate(' + moveX + 'px, ' + moveY + 'px)';
                 });
             });
         });

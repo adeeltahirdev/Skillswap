@@ -1078,7 +1078,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 3rem;
     font-weight: 800;
     background: var(--gradient-primary);
-    /* -webkit-background-clip: text; */
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     opacity: 0.15;
     position: absolute;
@@ -4003,3 +4003,1060 @@ h1, h2, h3, h4, h5, h6 {
         justify-content: center;
     }
 }
+
+/* ================================================
+   CARD ICON COLORS (replacing inline styles)
+   ================================================ */
+
+.card-icon-1 {
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+}
+
+.card-icon-2 {
+    background: linear-gradient(135deg, #06b6d4, #10b981);
+}
+
+.card-icon-3 {
+    background: linear-gradient(135deg, #ec4899, #8b5cf6);
+}
+
+/* Benefit Icons */
+.benefit-icon-1 {
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+}
+
+.benefit-icon-2 {
+    background: linear-gradient(135deg, #06b6d4, #10b981);
+}
+
+.benefit-icon-3 {
+    background: linear-gradient(135deg, #ec4899, #8b5cf6);
+}
+
+.benefit-icon-4 {
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+}
+
+/* Skill Card Delay Classes */
+.skill-card-delay-0 {
+    animation-delay: 0s;
+}
+
+.skill-card-delay-1 {
+    animation-delay: 0.1s;
+}
+
+.skill-card-delay-2 {
+    animation-delay: 0.2s;
+}
+
+.skill-card-delay-3 {
+    animation-delay: 0.3s;
+}
+
+.skill-card-delay-4 {
+    animation-delay: 0.4s;
+}
+
+.skill-card-delay-5 {
+    animation-delay: 0.5s;
+}
+
+/* Card Icon Base */
+.card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+/* Benefit Icon Base */
+.benefit-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    margin: 0 auto 1rem;
+}
+
+/* ================================================
+   SKILL LIST PAGE - FIXED UI
+   ================================================ */
+
+/* ----- Filters Actions ----- */
+.filter-actions {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.filter-actions .btn {
+    flex: 1;
+    min-width: 44px;
+    padding: 0.5rem 0.75rem;
+    white-space: nowrap;
+}
+
+/* ----- Skill Card - Fixed Layout ----- */
+.skill-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.skill-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(124, 58, 237, 0.2);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* ----- Skill Type Badge - Fixed Position ----- */
+.skill-type-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 2;
+}
+
+.skill-type-badge .badge {
+    font-weight: 500;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* ----- Skill Card Header - Fixed Layout ----- */
+.skill-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    padding-right: 80px; /* Space for the badge */
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.skill-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.skill-category {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0.2rem 0.7rem;
+    border-radius: 50px;
+    white-space: nowrap;
+}
+
+.skill-rating {
+    font-size: 0.85rem;
+    color: #f59e0b;
+    white-space: nowrap;
+}
+
+.skill-rating i {
+    margin-right: 4px;
+}
+
+/* ----- Skill Info ----- */
+.skill-name {
+    color: white;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    padding-right: 0;
+}
+
+.skill-description {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ----- Skill Footer ----- */
+.skill-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-teacher {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.teacher-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.06);
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.teacher-name {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.skill-footer .btn-sm {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+
+/* ----- Pagination ----- */
+.custom-pagination .page-link {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.5);
+    padding: 0.6rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.custom-pagination .page-link:hover {
+    background: rgba(124, 58, 237, 0.1);
+    border-color: rgba(124, 58, 237, 0.2);
+    color: white;
+}
+
+.custom-pagination .page-item.active .page-link {
+    background: var(--gradient-primary);
+    border-color: transparent;
+    color: white;
+}
+
+.custom-pagination .page-item.disabled .page-link {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.02);
+    color: rgba(255, 255, 255, 0.1);
+}
+
+/* ----- Responsive ----- */
+@media (max-width: 991.98px) {
+    .skill-card-header {
+        padding-right: 70px;
+    }
+    
+    .skill-type-badge .badge {
+        font-size: 0.65rem;
+        padding: 0.2rem 0.6rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .filter-actions {
+        flex-direction: row;
+    }
+    
+    .filter-actions .btn {
+        flex: 1;
+        min-width: 0;
+        padding: 0.4rem 0.5rem;
+        font-size: 0.85rem;
+    }
+    
+    .skill-card {
+        padding: 1.25rem;
+    }
+    
+    .skill-card-header {
+        padding-right: 0;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .skill-type-badge {
+        position: relative;
+        top: 0;
+        right: 0;
+        margin-bottom: 0.5rem;
+        width: 100%;
+    }
+    
+    .skill-type-badge .badge {
+        font-size: 0.7rem;
+    }
+    
+    .skill-meta {
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    
+    .skill-footer {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: stretch;
+    }
+    
+    .skill-teacher {
+        justify-content: center;
+    }
+    
+    .skill-footer .btn-sm {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .filter-actions {
+        flex-direction: row;
+    }
+    
+    .filter-actions .btn {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.4rem;
+    }
+    
+    .filter-actions .btn i {
+        font-size: 0.9rem;
+    }
+    
+    .skill-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .skill-meta {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    
+    .skill-name {
+        font-size: 1rem;
+    }
+    
+    .pagination .page-link {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* ================================================
+   SKILL LIST PAGE - COMPLETE FIX
+   ================================================ */
+
+/* ----- Filter Wrapper ----- */
+.filter-wrapper {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 20px;
+    padding: 1.5rem;
+}
+
+/* ----- Filter Grid ----- */
+.filter-grid {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1fr 1fr 0.8fr;
+    gap: 1rem;
+    align-items: end;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.filter-label {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ----- Search Input ----- */
+.search-wrapper {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 0.9rem;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.6rem 0.8rem 0.6rem 2.2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    color: white;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    height: 42px;
+}
+
+.search-input:focus {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+/* ----- Filter Select ----- */
+.filter-select {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    color: white;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    height: 42px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='rgba(255,255,255,0.3)' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+}
+
+.filter-select:focus {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+    outline: none;
+}
+
+.filter-select option {
+    background: #1a1a2e;
+    color: white;
+}
+
+/* ----- Filter Actions ----- */
+.filter-actions-group {
+    display: flex;
+    gap: 8px;
+    align-items: end;
+    padding-bottom: 0;
+}
+
+.btn-filter {
+    padding: 0.6rem 1.2rem;
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.btn-filter:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(124, 58, 237, 0.3);
+}
+
+.btn-reset {
+    padding: 0.6rem 0.8rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    min-width: 42px;
+}
+
+.btn-reset:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ----- Active Filters ----- */
+.active-filters {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.active-filters-label {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.8rem;
+    padding-top: 4px;
+}
+
+.filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.filter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(124, 58, 237, 0.1);
+    border: 1px solid rgba(124, 58, 237, 0.15);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 0.2rem 0.6rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+}
+
+.filter-remove {
+    color: rgba(255, 255, 255, 0.3);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.filter-remove:hover {
+    color: #ef4444;
+}
+
+/* ----- Results Count ----- */
+.results-count {
+    margin-top: 1.5rem;
+}
+
+.results-count-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+}
+
+.results-count-inner strong {
+    color: white;
+}
+
+/* ----- Skills Grid ----- */
+.skills-grid {
+    padding: 1.5rem 0 3rem;
+}
+
+.skills-grid-inner {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+/* ----- Skill Card - Fixed Layout ----- */
+.skill-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.skill-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(124, 58, 237, 0.2);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* ----- Skill Icon ----- */
+.skill-icon-wrapper {
+    margin-bottom: 0.8rem;
+}
+
+.skill-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+}
+
+/* Skill Colors */
+.skill-color-0 {
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+}
+
+.skill-color-1 {
+    background: linear-gradient(135deg, #06b6d4, #10b981);
+}
+
+.skill-color-2 {
+    background: linear-gradient(135deg, #ec4899, #8b5cf6);
+}
+
+.skill-color-3 {
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+}
+
+/* ----- Skill Content - Fixed Tag Layout ----- */
+.skill-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+    gap: 8px;
+}
+
+/* Tags Container - Stacked on the right */
+.skill-tags {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+/* Skill Type Badge - Top */
+.skill-type-badge {
+    display: flex;
+}
+
+.badge-teach,
+.badge-learn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0.2rem 0.7rem;
+    border-radius: 50px;
+    font-size: 0.65rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.badge-teach {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.badge-learn {
+    background: rgba(59, 130, 246, 0.15);
+    color: #3b82f6;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.badge-teach i,
+.badge-learn i {
+    font-size: 0.6rem;
+}
+
+/* Category Badge - Bottom */
+.skill-category {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0.15rem 0.6rem;
+    border-radius: 50px;
+    white-space: nowrap;
+}
+
+/* Rating - Top right area */
+.skill-rating {
+    font-size: 0.85rem;
+    color: #f59e0b;
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding-top: 2px;
+}
+
+.skill-rating i {
+    margin-right: 2px;
+    font-size: 0.75rem;
+}
+
+/* ----- Skill Info ----- */
+.skill-name {
+    color: white;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.05rem;
+}
+
+.skill-description {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ----- Skill Footer ----- */
+.skill-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    gap: 8px;
+}
+
+.skill-teacher {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.teacher-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.06);
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.teacher-name {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.btn-view {
+    padding: 0.3rem 0.8rem;
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.btn-view:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+    color: white;
+}
+
+/* ----- Pagination ----- */
+.pagination-wrapper {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-list {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pagination-list li {
+    display: inline-block;
+}
+
+.pagination-list a,
+.pagination-list span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.pagination-list a:hover {
+    background: rgba(124, 58, 237, 0.1);
+    border-color: rgba(124, 58, 237, 0.2);
+    color: white;
+}
+
+.pagination-list li.active span {
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+    border-color: transparent;
+    color: white;
+}
+
+/* ----- Empty State ----- */
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.empty-icon {
+    font-size: 4rem;
+    color: rgba(255, 255, 255, 0.03);
+}
+
+.empty-state h3 {
+    color: white;
+    margin-top: 1rem;
+    font-weight: 600;
+}
+
+.empty-state p {
+    color: rgba(255, 255, 255, 0.3);
+    margin-bottom: 1.5rem;
+}
+
+.btn-glow {
+    display: inline-block;
+    padding: 0.6rem 1.8rem;
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+    border-radius: 12px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(124, 58, 237, 0.3);
+    color: white;
+}
+
+/* ----- Responsive ----- */
+@media (max-width: 992px) {
+    .filter-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+    }
+    
+    .filter-actions-group {
+        grid-column: span 2;
+        flex-direction: row;
+    }
+    
+    .skills-grid-inner {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .filter-wrapper {
+        padding: 1rem;
+    }
+    
+    .filter-grid {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+    
+    .filter-actions-group {
+        grid-column: span 1;
+        flex-direction: row;
+    }
+    
+    .btn-filter {
+        flex: 1;
+        justify-content: center;
+    }
+    
+    .btn-reset {
+        flex: 0 0 42px;
+    }
+    
+    .skills-grid-inner {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .skill-content {
+        flex-wrap: wrap;
+    }
+    
+    .skill-tags {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px;
+    }
+    
+    .skill-type-badge {
+        display: inline-flex;
+    }
+    
+    .badge-teach,
+    .badge-learn {
+        font-size: 0.6rem;
+        padding: 0.15rem 0.5rem;
+    }
+    
+    .skill-category {
+        font-size: 0.65rem;
+        padding: 0.1rem 0.5rem;
+    }
+    
+    .skill-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+    
+    .skill-teacher {
+        justify-content: center;
+    }
+    
+    .btn-view {
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .active-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-tags {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 576px) {
+    .filter-wrapper {
+        padding: 0.8rem;
+    }
+    
+    .filter-actions-group {
+        flex-direction: row;
+    }
+    
+    .btn-filter {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+        height: 38px;
+    }
+    
+    .btn-reset {
+        height: 38px;
+        min-width: 38px;
+    }
+    
+    .search-input,
+    .filter-select {
+        height: 38px;
+        font-size: 0.85rem;
+        padding: 0.4rem 0.6rem;
+    }
+    
+    .search-input {
+        padding-left: 2rem;
+    }
+    
+    .search-icon {
+        left: 8px;
+        font-size: 0.8rem;
+    }
+    
+    .results-count-inner {
+        flex-direction: column;
+        gap: 4px;
+        align-items: flex-start;
+    }
+    
+    .pagination-list a,
+    .pagination-list span {
+        min-width: 32px;
+        height: 32px;
+        font-size: 0.8rem;
+        padding: 0 8px;
+    }
+}
+

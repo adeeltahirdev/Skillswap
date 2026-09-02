@@ -14,7 +14,7 @@
                 <div class="hero-content">
                     <div class="hero-badge">
                         <i class="bi bi-rocket-takeoff"></i>
-                        <span>Join 10,000+ Learners</span>
+                        <span>Join {{ total_users|default:"10,000" }}+ Learners</span>
                     </div>
                     
                     <h1 class="hero-title">
@@ -48,17 +48,17 @@
                     
                     <div class="hero-stats">
                         <div class="stat-item">
-                            <span class="stat-number" data-count="5000">0</span>
+                            <span class="stat-number" data-count="{{ total_users|default:5000 }}">{{ total_users|default:"0" }}</span>
                             <span class="stat-label">Active Users</span>
                         </div>
                         <div class="stat-divider"></div>
                         <div class="stat-item">
-                            <span class="stat-number" data-count="12000">0</span>
+                            <span class="stat-number" data-count="{{ total_skills|default:12000 }}">{{ total_skills|default:"0" }}</span>
                             <span class="stat-label">Skills Exchanged</span>
                         </div>
                         <div class="stat-divider"></div>
                         <div class="stat-item">
-                            <span class="stat-number" data-count="150">0</span>
+                            <span class="stat-number" data-count="150">150</span>
                             <span class="stat-label">Countries</span>
                         </div>
                     </div>
@@ -69,29 +69,32 @@
                 <div class="hero-visual">
                     <div class="floating-cards">
                         <div class="float-card card-1 animate-float">
-                            <div class="card-icon" style="background: linear-gradient(135deg, #7c3aed, #8b5cf6);">
+                            <div class="card-icon card-icon-1">
                                 <i class="bi bi-palette"></i>
                             </div>
                             <div class="card-info">
                                 <h6>Photoshop</h6>
+                                <!-- <span>5 users learning</span> -->
                             </div>
                         </div>
                         
                         <div class="float-card card-2 animate-float-delay-1">
-                            <div class="card-icon" style="background: linear-gradient(135deg, #06b6d4, #10b981);">
+                            <div class="card-icon card-icon-2">
                                 <i class="bi bi-music-note-beamed"></i>
                             </div>
                             <div class="card-info">
                                 <h6>Guitar</h6>
+                                <!-- <span>12 users teaching</span> -->
                             </div>
                         </div>
                         
                         <div class="float-card card-3 animate-float-delay-2">
-                            <div class="card-icon" style="background: linear-gradient(135deg, #ec4899, #8b5cf6);">
+                            <div class="card-icon card-icon-3">
                                 <i class="bi bi-code-square"></i>
                             </div>
                             <div class="card-info">
                                 <h6>Python</h6>
+                                <!-- <span>8 users exchanging</span> -->
                             </div>
                         </div>
                     </div>
@@ -191,165 +194,61 @@
         </div>
         
         <div class="row g-4">
-            <!-- Skill Card 1 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="skill-card animate-on-scroll">
-                    <div class="skill-card-header">
-                        <div class="skill-icon" style="background: linear-gradient(135deg, #7c3aed, #8b5cf6);">
-                            <i class="bi bi-code-square"></i>
+            {% if featured_skills %}
+                {% for skill in featured_skills %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="skill-card animate-on-scroll skill-card-delay-{{ forloop.counter0|divisibleby:3 }}">
+                        <div class="skill-card-header">
+                            <div class="skill-icon skill-color-{{ forloop.counter0|divisibleby:3 }}">
+                                <i class="{{ skill.icon|default:'bi bi-tools' }}"></i>
+                            </div>
+                            <div class="skill-meta">
+                                <span class="skill-category">{{ skill.get_category_display|default:skill.category|title }}</span>
+                                <span class="skill-rating">
+                                    <i class="bi bi-star-fill text-warning"></i> 
+                                    {% with rating=skill.user.profile.rating|default:0 %}
+                                    {{ rating|floatformat:1 }}
+                                    {% endwith %}
+                                </span>
+                            </div>
                         </div>
-                        <div class="skill-meta">
-                            <span class="skill-category">Programming</span>
-                            <span class="skill-rating">
-                                <i class="bi bi-star-fill"></i> 4.8
-                            </span>
+                        <h5 class="skill-name">{{ skill.name }}</h5>
+                        <p class="skill-description">{{ skill.description|truncatechars:100|default:"No description provided." }}</p>
+                        <div class="skill-footer">
+                            <div class="skill-teacher">
+                                <img src="https://ui-avatars.com/api/?name={{ skill.user.username|urlencode }}&background=7c3aed&color=fff&size=32" alt="{{ skill.user.username }}" class="teacher-avatar">
+                                <span class="teacher-name">{{ skill.user.get_full_name|default:skill.user.username }}</span>
+                            </div>
+                            <a href="{% url 'skill_detail' pk=skill.id %}" class="btn btn-glow btn-sm">
+                                View Skill <i class="bi bi-arrow-right ms-1"></i>
+                            </a>
                         </div>
-                    </div>
-                    <h5 class="skill-name">Python Development</h5>
-                    <p class="skill-description">Learn Python from basics to advanced. Perfect for data science and web development.</p>
-                    <div class="skill-footer">
-                        <div class="skill-teacher">
-                            <img src="https://ui-avatars.com/api/?name=Sarah+Chen&background=7c3aed&color=fff&size=32" alt="Teacher">
-                            <span>Sarah Chen</span>
-                        </div>
-                        <a href="#" class="btn btn-glow btn-sm">View Skill</a>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Skill Card 2 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="skill-card animate-on-scroll" style="animation-delay: 0.1s;">
-                    <div class="skill-card-header">
-                        <div class="skill-icon" style="background: linear-gradient(135deg, #06b6d4, #10b981);">
-                            <i class="bi bi-palette"></i>
-                        </div>
-                        <div class="skill-meta">
-                            <span class="skill-category">Design</span>
-                            <span class="skill-rating">
-                                <i class="bi bi-star-fill"></i> 4.9
-                            </span>
-                        </div>
-                    </div>
-                    <h5 class="skill-name">Photoshop Mastery</h5>
-                    <p class="skill-description">Master photo editing, digital art, and design principles with hands-on practice.</p>
-                    <div class="skill-footer">
-                        <div class="skill-teacher">
-                            <img src="https://ui-avatars.com/api/?name=Alex+Rivera&background=06b6d4&color=fff&size=32" alt="Teacher">
-                            <span>Alex Rivera</span>
-                        </div>
-                        <a href="#" class="btn btn-glow btn-sm">View Skill</a>
+                {% endfor %}
+            {% else %}
+                <!-- Empty State - No Skills Yet -->
+                <div class="col-12 text-center py-5">
+                    <div class="empty-state">
+                        <i class="bi bi-tools empty-icon"></i>
+                        <h5 class="text-white">No skills added yet</h5>
+                        <p class="text-muted">Be the first to add a skill to the community!</p>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'profile' %}" class="btn btn-glow btn-sm mt-2">
+                            <i class="bi bi-plus me-1"></i> Add Your Skill
+                        </a>
+                        {% else %}
+                        <a href="{% url 'register' %}" class="btn btn-glow btn-sm mt-2">
+                            <i class="bi bi-person-plus me-1"></i> Join Now
+                        </a>
+                        {% endif %}
                     </div>
                 </div>
-            </div>
-            
-            <!-- Skill Card 3 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="skill-card animate-on-scroll" style="animation-delay: 0.2s;">
-                    <div class="skill-card-header">
-                        <div class="skill-icon" style="background: linear-gradient(135deg, #ec4899, #8b5cf6);">
-                            <i class="bi bi-music-note-beamed"></i>
-                        </div>
-                        <div class="skill-meta">
-                            <span class="skill-category">Music</span>
-                            <span class="skill-rating">
-                                <i class="bi bi-star-fill"></i> 4.7
-                            </span>
-                        </div>
-                    </div>
-                    <h5 class="skill-name">Guitar for Beginners</h5>
-                    <p class="skill-description">Learn chords, strumming patterns, and popular songs. No prior experience needed.</p>
-                    <div class="skill-footer">
-                        <div class="skill-teacher">
-                            <img src="https://ui-avatars.com/api/?name=Maria+Garcia&background=ec4899&color=fff&size=32" alt="Teacher">
-                            <span>Maria Garcia</span>
-                        </div>
-                        <a href="#" class="btn btn-glow btn-sm">View Skill</a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Skill Card 4 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="skill-card animate-on-scroll" style="animation-delay: 0.3s;">
-                    <div class="skill-card-header">
-                        <div class="skill-icon" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">
-                            <i class="bi bi-camera"></i>
-                        </div>
-                        <div class="skill-meta">
-                            <span class="skill-category">Photography</span>
-                            <span class="skill-rating">
-                                <i class="bi bi-star-fill"></i> 4.6
-                            </span>
-                        </div>
-                    </div>
-                    <h5 class="skill-name">Photography Basics</h5>
-                    <p class="skill-description">Learn composition, lighting, and editing. Take professional-quality photos.</p>
-                    <div class="skill-footer">
-                        <div class="skill-teacher">
-                            <img src="https://ui-avatars.com/api/?name=James+Lee&background=f59e0b&color=fff&size=32" alt="Teacher">
-                            <span>James Lee</span>
-                        </div>
-                        <a href="#" class="btn btn-glow btn-sm">View Skill</a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Skill Card 5 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="skill-card animate-on-scroll" style="animation-delay: 0.4s;">
-                    <div class="skill-card-header">
-                        <div class="skill-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
-                            <i class="bi bi-layers"></i>
-                        </div>
-                        <div class="skill-meta">
-                            <span class="skill-category">Design</span>
-                            <span class="skill-rating">
-                                <i class="bi bi-star-fill"></i> 4.9
-                            </span>
-                        </div>
-                    </div>
-                    <h5 class="skill-name">Graphic Design</h5>
-                    <p class="skill-description">Create stunning visuals with industry-standard tools and techniques.</p>
-                    <div class="skill-footer">
-                        <div class="skill-teacher">
-                            <img src="https://ui-avatars.com/api/?name=Emma+Wong&background=6366f1&color=fff&size=32" alt="Teacher">
-                            <span>Emma Wong</span>
-                        </div>
-                        <a href="#" class="btn btn-glow btn-sm">View Skill</a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Skill Card 6 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="skill-card animate-on-scroll" style="animation-delay: 0.5s;">
-                    <div class="skill-card-header">
-                        <div class="skill-icon" style="background: linear-gradient(135deg, #10b981, #06b6d4);">
-                            <i class="bi bi-browser-chrome"></i>
-                        </div>
-                        <div class="skill-meta">
-                            <span class="skill-category">Web Dev</span>
-                            <span class="skill-rating">
-                                <i class="bi bi-star-fill"></i> 4.8
-                            </span>
-                        </div>
-                    </div>
-                    <h5 class="skill-name">Web Development</h5>
-                    <p class="skill-description">Build modern websites with HTML, CSS, JavaScript, and React.</p>
-                    <div class="skill-footer">
-                        <div class="skill-teacher">
-                            <img src="https://ui-avatars.com/api/?name=David+Park&background=10b981&color=fff&size=32" alt="Teacher">
-                            <span>David Park</span>
-                        </div>
-                        <a href="#" class="btn btn-glow btn-sm">View Skill</a>
-                    </div>
-                </div>
-            </div>
+            {% endif %}
         </div>
         
         <div class="text-center mt-5">
-            <a href="#" class="btn btn-outline-glass">
+            <a href="{% url 'skill_list' %}" class="btn btn-outline-glass">
                 <i class="bi bi-compass me-2"></i> Browse All Skills
             </a>
         </div>
@@ -375,7 +274,7 @@
         <div class="row g-4">
             <div class="col-lg-3 col-md-6">
                 <div class="benefit-card animate-on-scroll">
-                    <div class="benefit-icon" style="background: linear-gradient(135deg, #7c3aed, #8b5cf6);">
+                    <div class="benefit-icon benefit-icon-1">
                         <i class="bi bi-wallet2"></i>
                     </div>
                     <h5>Learn for Free</h5>
@@ -385,7 +284,7 @@
             
             <div class="col-lg-3 col-md-6">
                 <div class="benefit-card animate-on-scroll" style="animation-delay: 0.1s;">
-                    <div class="benefit-icon" style="background: linear-gradient(135deg, #06b6d4, #10b981);">
+                    <div class="benefit-icon benefit-icon-2">
                         <i class="bi bi-mortarboard"></i>
                     </div>
                     <h5>Learn Anything</h5>
@@ -395,7 +294,7 @@
             
             <div class="col-lg-3 col-md-6">
                 <div class="benefit-card animate-on-scroll" style="animation-delay: 0.2s;">
-                    <div class="benefit-icon" style="background: linear-gradient(135deg, #ec4899, #8b5cf6);">
+                    <div class="benefit-icon benefit-icon-3">
                         <i class="bi bi-people"></i>
                     </div>
                     <h5>Meet New People</h5>
@@ -405,7 +304,7 @@
             
             <div class="col-lg-3 col-md-6">
                 <div class="benefit-card animate-on-scroll" style="animation-delay: 0.3s;">
-                    <div class="benefit-icon" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">
+                    <div class="benefit-icon benefit-icon-4">
                         <i class="bi bi-graph-up-arrow"></i>
                     </div>
                     <h5>Grow Your Network</h5>
@@ -528,19 +427,23 @@
     </div>
 </section>
 {% else %}
-<!-- ======================================== -->
-<!-- WELCOME BACK SECTION - For logged-in users -->
-<!-- ======================================== -->
+<!-- Welcome Back Section -->
 <section class="section-padding">
     <div class="container">
         <div class="glass p-5 text-center">
+            <div class="mb-3">
+                <i class="bi bi-emoji-smile fs-1 text-gradient"></i>
+            </div>
             <h3 class="text-white">
-                Welcome back, <span class="gradient-text">{{ user.username }}</span>!
+                Welcome back, <span class="gradient-text">{{ user.username }}</span>! 👋
             </h3>
-            <p class="txc mb-4">Continue your skill exchange journey</p>
+            <p class="text-muted mb-4">Continue your skill exchange journey</p>
             <div class="d-flex gap-3 justify-content-center flex-wrap">
                 <a href="{% url 'profile' %}" class="btn btn-glow">
                     <i class="bi bi-person me-1"></i> My Profile
+                </a>
+                <a href="{% url 'skill_list' %}" class="btn btn-outline-glass">
+                    <i class="bi bi-compass me-1"></i> Explore Skills
                 </a>
             </div>
         </div>
@@ -553,28 +456,30 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Animated counter for hero stats
-        const statNumbers = document.querySelectorAll('.stat-number');
+        var statNumbers = document.querySelectorAll('.stat-number');
         
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
+        var counterObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
-                    const target = entry.target;
-                    const count = parseInt(target.dataset.count);
+                    var target = entry.target;
+                    var count = parseInt(target.dataset.count);
                     animateCounter(target, count);
                     counterObserver.unobserve(target);
                 }
             });
         }, { threshold: 0.5 });
         
-        statNumbers.forEach(stat => counterObserver.observe(stat));
+        statNumbers.forEach(function(stat) {
+            counterObserver.observe(stat);
+        });
         
         function animateCounter(element, target) {
-            let current = 0;
-            const increment = Math.ceil(target / 60);
-            const duration = 2000;
-            const stepTime = duration / 60;
+            var current = 0;
+            var increment = Math.ceil(target / 60);
+            var duration = 2000;
+            var stepTime = duration / 60;
             
-            const timer = setInterval(() => {
+            var timer = setInterval(function() {
                 current += increment;
                 if (current >= target) {
                     current = target;
