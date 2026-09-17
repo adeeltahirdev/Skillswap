@@ -94,7 +94,10 @@ def user_profile(request, username=None):
         activity_list = []
         completed_swaps_count = 0
     
-    connections_count = 0  # You can implement this later
+    connections_count = SwapRequest.objects.filter(
+        models.Q(requester=profile_user) | models.Q(recipient=profile_user),
+        status__in=['accepted', 'completed']
+    ).values('requester', 'recipient').distinct().count()
     
     context = {
         'profile_user': profile_user,

@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.models import User
 from .models import Skill
+from swap.models import SwapRequest, Review
 
 def home(request):
     """
@@ -11,14 +13,18 @@ def home(request):
     # Get featured skills (latest 6 skills)
     featured_skills = Skill.objects.all().select_related('user', 'user__profile').order_by('-created_at')[:6]
     
-    # Get counts
+    # Get live community data
     total_skills = Skill.objects.count()
     total_users = User.objects.count()
+    completed_swaps = SwapRequest.objects.filter(status='completed').count()
+    community_reviews = Review.objects.filter(comment__isnull=False).exclude(comment='').select_related('reviewer', 'reviewer__profile').order_by('-created_at')[:3]
     
     context = {
         'featured_skills': featured_skills,
         'total_skills': total_skills,
         'total_users': total_users,
+        'completed_swaps': completed_swaps,
+        'community_reviews': community_reviews,
     }
     
     return render(request, 'index.html', context)
@@ -91,3 +97,22 @@ def skill_detail(request, pk):
     }
     
     return render(request, 'skills/skill_detail.html', context)
+
+@login_required
+def my_skills(request):
+    """
+    Display all skills created by the logged-in user
+    """
+    skills = Skill.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'skills/my_skills.html', {'skills': skills})
+
+@login_required
+def suggested_matches(request):
+    """
+    Find skills offered by people who want one of the current user's offered skills
+    """
+    user_skill_names = Skill.objects.filter(user=request.user, skill_type='offer').values_list('name', flat=True)
+    suggestions = Skill.objects.filter(skill_type='offer').exclude(user=request.user).filter(
+        user__skills__skill_type='want', user__skills__name__in=user_skill_names
+    ).select_related('user', 'user__profile').distinct().order_by('-user__profile__rating')
+    return render(request, 'skills/suggested_matches.html', {'suggestions': suggestions})

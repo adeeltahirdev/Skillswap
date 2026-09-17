@@ -23,6 +23,9 @@ class SwapRequest(models.Model):
     def __str__(self):
         return f"{self.requester.username} -> {self.recipient.username} ({self.status})"
 
+    def other_user(self, user):
+        return self.recipient if self.requester == user else self.requester
+
 class Review(models.Model):
     reviewer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='given_reviews')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_reviews')
@@ -44,3 +47,27 @@ class Activity(models.Model):
     
     def __str__(self):
         return f"{self.user.username} - {self.title}"
+
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
+    title = models.CharField(max_length=100)
+    message = models.TextField(max_length=300)
+    link = models.CharField(max_length=200, blank=True)
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.title}"
+
+class Message(models.Model):
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
+    recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_messages')
+    body = models.TextField(max_length=1000)
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created_at']
+
+    def __str__(self):
+        return f"{self.sender.username} -> {self.recipient.username}"

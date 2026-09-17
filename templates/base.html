@@ -73,12 +73,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'my_skills' %}active{% endif %}" href="#">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'my_skills' %}active{% endif %}" href="{% url 'my_skills' %}">
                             <i class="bi bi-tools me-1"></i> My Skills
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link position-relative {% if request.resolver_match.url_name == 'requests' %}active{% endif %}" href="#">
+                        <a class="nav-link position-relative {% if request.resolver_match.url_name == 'requests' %}active{% endif %}" href="{% url 'requests' %}">
                             <i class="bi bi-arrow-left-right me-1"></i> Swaps
                             {% if unread_swap_requests > 0 %}
                             <span class="notification-badge">{{ unread_swap_requests }}</span>
@@ -91,6 +91,12 @@
                 <ul class="navbar-nav ms-auto">
                     {% if user.is_authenticated %}
                     <!-- Logged In -->
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="{% url 'notifications' %}" aria-label="Notifications">
+                            <i class="bi bi-bell"></i>
+                            {% if unread_notifications > 0 %}<span class="notification-badge">{{ unread_notifications }}</span>{% endif %}
+                        </a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle user-menu" href="#" data-bs-toggle="dropdown">
                             <div class="user-avatar-wrapper">
@@ -107,17 +113,28 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end glass-dropdown">
                             <li>
+                                <a class="dropdown-item" href="{% url 'dashboard' %}">
+                                    <i class="bi bi-grid"></i> Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'inbox' %}">
+                                    <i class="bi bi-chat-dots"></i> Messages
+                                    {% if unread_messages > 0 %}<span class="badge bg-danger ms-2">{{ unread_messages }}</span>{% endif %}
+                                </a>
+                            </li>
+                            <li>
                                 <a class="dropdown-item {% if request.resolver_match.url_name == 'profile' %}active{% endif %}" href="{% url 'profile' %}">
                                     <i class="bi bi-person"></i> My Profile
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{% url 'my_skills' %}">
                                     <i class="bi bi-tools"></i> My Skills
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{% url 'requests' %}">
                                     <i class="bi bi-arrow-left-right"></i> Swap Requests
                                     {% if unread_swap_requests > 0 %}
                                     <span class="badge bg-danger ms-2">{{ unread_swap_requests }}</span>
@@ -240,8 +257,8 @@
                     <ul class="footer-links">
                         <li><a href="{% url 'index' %}">Home</a></li>
                         <li><a href="{% url 'skill_list' %}">Explore Skills</a></li>
-                        <li><a href="#">My Skills</a></li>
-                        <li><a href="#">Swap Requests</a></li>
+                        <li><a href="{% url 'my_skills' %}">My Skills</a></li>
+                        <li><a href="{% url 'requests' %}">Swap Requests</a></li>
                     </ul>
                 </div>
                 

@@ -14,7 +14,7 @@
                 <div class="hero-content">
                     <div class="hero-badge">
                         <i class="bi bi-rocket-takeoff"></i>
-                        <span>Join {{ total_users|default:"10,000" }}+ Learners</span>
+                        <span>Join {{ total_users }} Learner{{ total_users|pluralize }}</span>
                     </div>
                     
                     <h1 class="hero-title">
@@ -48,18 +48,18 @@
                     
                     <div class="hero-stats">
                         <div class="stat-item">
-                            <span class="stat-number" data-count="{{ total_users|default:5000 }}">{{ total_users|default:"0" }}</span>
-                            <span class="stat-label">Active Users</span>
+                            <span class="stat-number" data-count="{{ total_users }}">{{ total_users }}</span>
+                            <span class="stat-label">Community Members</span>
                         </div>
                         <div class="stat-divider"></div>
                         <div class="stat-item">
-                            <span class="stat-number" data-count="{{ total_skills|default:12000 }}">{{ total_skills|default:"0" }}</span>
-                            <span class="stat-label">Skills Exchanged</span>
+                            <span class="stat-number" data-count="{{ total_skills }}">{{ total_skills }}</span>
+                            <span class="stat-label">Skills Listed</span>
                         </div>
                         <div class="stat-divider"></div>
                         <div class="stat-item">
-                            <span class="stat-number" data-count="150">150</span>
-                            <span class="stat-label">Countries</span>
+                            <span class="stat-number" data-count="{{ completed_swaps }}">{{ completed_swaps }}</span>
+                            <span class="stat-label">Completed Swaps</span>
                         </div>
                     </div>
                 </div>
@@ -68,35 +68,17 @@
             <div class="col-lg-5">
                 <div class="hero-visual">
                     <div class="floating-cards">
-                        <div class="float-card card-1 animate-float">
+                        {% for skill in featured_skills|slice:":3" %}
+                        <div class="float-card card-{{ forloop.counter }} animate-float{% if forloop.counter > 1 %}-delay-{{ forloop.counter0 }}{% endif %}">
                             <div class="card-icon card-icon-1">
-                                <i class="bi bi-palette"></i>
+                                <i class="{{ skill.icon|default:'bi bi-tools' }}"></i>
                             </div>
                             <div class="card-info">
-                                <h6>Photoshop</h6>
-                                <!-- <span>5 users learning</span> -->
+                                <h6>{{ skill.name }}</h6>
+                                <span>{{ skill.get_category_display }}</span>
                             </div>
                         </div>
-                        
-                        <div class="float-card card-2 animate-float-delay-1">
-                            <div class="card-icon card-icon-2">
-                                <i class="bi bi-music-note-beamed"></i>
-                            </div>
-                            <div class="card-info">
-                                <h6>Guitar</h6>
-                                <!-- <span>12 users teaching</span> -->
-                            </div>
-                        </div>
-                        
-                        <div class="float-card card-3 animate-float-delay-2">
-                            <div class="card-icon card-icon-3">
-                                <i class="bi bi-code-square"></i>
-                            </div>
-                            <div class="card-info">
-                                <h6>Python</h6>
-                                <!-- <span>8 users exchanging</span> -->
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                     
                     <!-- Decorative elements -->
@@ -328,73 +310,35 @@
             </h2>
         </div>
         
+        {% if community_reviews %}
         <div class="row g-4">
+            {% for review in community_reviews %}
             <div class="col-lg-4 col-md-6">
-                <div class="testimonial-card animate-on-scroll">
-                    <div class="testimonial-rating">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
+                <div class="testimonial-card animate-on-scroll"{% if forloop.counter0 %} style="animation-delay: {{ forloop.counter0 }}00ms;"{% endif %}>
+                    <div class="testimonial-rating" aria-label="{{ review.rating }} out of 5 stars">
+                        {% for star in '12345' %}
+                        <i class="bi {% if forloop.counter <= review.rating %}bi-star-fill{% else %}bi-star{% endif %}"></i>
+                        {% endfor %}
                     </div>
-                    <p class="testimonial-text">
-                        "I learned Python in exchange for teaching Photoshop. Skill Swap completely changed my career path!"
-                    </p>
+                    <p class="testimonial-text">“{{ review.comment }}”</p>
                     <div class="testimonial-author">
-                        <img src="https://ui-avatars.com/api/?name=Jane+Doe&background=7c3aed&color=fff&size=40" alt="Jane Doe">
+                        {% if review.reviewer.profile.avatar %}
+                        <img src="{{ review.reviewer.profile.avatar.url }}" alt="{{ review.reviewer.username }}">
+                        {% else %}
+                        <img src="https://ui-avatars.com/api/?name={{ review.reviewer.username|urlencode }}&background=7c3aed&color=fff&size=40" alt="{{ review.reviewer.username }}">
+                        {% endif %}
                         <div>
-                            <h6>Jane Doe</h6>
-                            <span>Python Developer</span>
+                            <h6>{{ review.reviewer.get_full_name|default:review.reviewer.username }}</h6>
+                            <span>{{ review.created_at|date:"F Y" }}</span>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="col-lg-4 col-md-6">
-                <div class="testimonial-card animate-on-scroll" style="animation-delay: 0.1s;">
-                    <div class="testimonial-rating">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                    </div>
-                    <p class="testimonial-text">
-                        "I taught guitar and learned video editing. The community is amazing and very supportive!"
-                    </p>
-                    <div class="testimonial-author">
-                        <img src="https://ui-avatars.com/api/?name=Mike+Smith&background=06b6d4&color=fff&size=40" alt="Mike Smith">
-                        <div>
-                            <h6>Mike Smith</h6>
-                            <span>Video Editor</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-4 col-md-6">
-                <div class="testimonial-card animate-on-scroll" style="animation-delay: 0.2s;">
-                    <div class="testimonial-rating">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                    </div>
-                    <p class="testimonial-text">
-                        "Skill Swap helped me learn graphic design while sharing my web development skills. Win-win!"
-                    </p>
-                    <div class="testimonial-author">
-                        <img src="https://ui-avatars.com/api/?name=Lisa+Chen&background=ec4899&color=fff&size=40" alt="Lisa Chen">
-                        <div>
-                            <h6>Lisa Chen</h6>
-                            <span>Graphic Designer</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
+        {% else %}
+        <p class="section-description text-center mb-0">Complete a swap to be the first community member to share a story.</p>
+        {% endif %}
     </div>
 </section>
 
@@ -412,7 +356,7 @@
                         <span class="gradient-text">Exchanging Skills?</span>
                     </h2>
                     <p class="cta-description">
-                        Join thousands of learners and teachers already exchanging skills on Skill Swap.
+                        Join a community of learners and teachers already exchanging skills on Skill Swap.
                         It's completely free to get started.
                     </p>
                 </div>
